@@ -88,14 +88,20 @@ nav.daynav a .num{font-weight:700;color:var(--sky)}
 .ic.spot{background:var(--sky)} .ic.food{background:var(--sun)} .ic.rain{background:var(--rain)} .ic.stay{background:var(--leaf)}
 .ic.trip{background:#7c4dcc}
 .tripbox{background:#f6f4fc;border:1px solid #e2daf5;border-radius:14px;padding:10px 14px;margin-top:4px}
-.leg-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 0;border-bottom:1px dashed #e4dcf3}
+.leg-row{display:flex;flex-direction:column;gap:5px;padding:9px 0;border-bottom:1px dashed #e4dcf3}
 .leg-row:last-child{border-bottom:0}
-.leg-route{font-size:14.5px;font-weight:600;color:var(--ink);flex:1;min-width:150px}
+.leg-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.leg-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-left:2px}
+.leg-x{font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.leg-x.direct{background:#e8f7ee;border:1px solid #bfe6cf;color:#26714d}
+.leg-x.change{background:#fff3e6;border:1px solid #f3d3ac;color:#b45309}
+.leg-route{font-size:14.5px;font-weight:600;color:var(--ink)}
 .leg-train{font-size:12.5px;font-weight:700;background:#fff3e6;border:1px solid #f3d3ac;color:#c2410c;border-radius:7px;padding:2px 9px}
 .leg-time{font-size:14px;font-weight:700;background:#ece5fa;border:1px solid #d3c6f0;color:#5b3aa8;border-radius:7px;padding:2px 10px;white-space:nowrap}
+.leg-pf{font-size:12px;background:#eef4fa;border:1px solid #cfe0f0;color:#3a6b93;border-radius:7px;padding:2px 9px}
 .trip-backup{margin-top:8px;padding:4px 10px 6px;background:#fbfaff;border:1px dashed #d3c6ee;border-radius:10px}
 .trip-backup .btag{display:inline-block;font-size:12px;font-weight:700;color:#6b5aa0;margin:6px 0 2px}
-.trip-backup .leg-row{padding:5px 0;border-bottom-color:#ece7f6}
+.trip-backup .leg-row{padding:6px 0;border-bottom-color:#ece7f6}
 .trip-backup .leg-route{font-size:13.5px}
 .trip-backup .leg-time{font-size:13px}
 
@@ -110,6 +116,12 @@ nav.daynav a .num{font-weight:700;color:var(--sky)}
 .chip.stay{background:#eefaf3;border-color:#bfe6cf;color:#26714d}
 .chip.cost{background:#fdeef0;border-color:#f3c2cb;color:#b23a52}
 .chip.cost.dim{background:#f4f5f7;border-color:#dfe3e9;color:#8a93a0}
+.hotel-detail{background:#f3faf6;border:1px solid #cfe9db;border-radius:12px;padding:10px 14px;margin-top:8px}
+.hd-row{display:flex;gap:10px;font-size:13px;padding:3px 0}
+.hd-k{flex:0 0 68px;color:#4b8f6d;font-weight:700}
+.hd-v{flex:1;color:var(--ink)}
+.hd-v.mono{font-family:ui-monospace,monospace;letter-spacing:.3px}
+.hd-warn{margin-top:6px;background:#fff4ec;border:1px solid #f4cba6;color:#b45309;border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:600}
 .maplink{font-size:11px;font-weight:600;color:var(--sky-d);text-decoration:none;
   background:#eaf3fb;border:1px solid #c8e0f2;border-radius:7px;padding:1px 7px;margin-left:6px;vertical-align:middle;white-space:nowrap}
 .maplink:hover{background:var(--sky);color:#fff;border-color:var(--sky)}
@@ -263,7 +275,7 @@ footer .tips li{font-size:13.5px;margin-left:18px;margin-bottom:5px}
 const days = [
  {
   n:1, date:"7/20 (一)", title:"博多・天神逛街日", where:["福岡","博多 泊"],
-  trip:{main:[{r:"✈️ TPE → FUK 台北桃園 → 福岡",t:"09:35~13:05",tr:"訂位 D4BGFM / D45UF2"},{r:"🚆 福岡機場 → 博多（地下鐵 2 站）",t:"約6分",tr:""}],backup:[]},
+  trip:{main:[{r:"✈️ TPE → FUK 台北桃園 → 福岡",t:"09:35~13:05",tr:"訂位 D4BGFM / D45UF2"},{r:"🚆 福岡機場 → 博多（地下鐵 2 站）",t:"約6分",tr:"福岡市地下鐵 空港線",x:"直達",pf:"機場站月台（僅1面，直接搭）"}],backup:[]},
   train:{tag:"抵達日",txt:"天神地下街／Kiddy Land"},
   spots:[
    {h:"天神地下街",wiki:"Tenjin Chikagai Fukuoka",p:"宛如歐洲石板小巷的地下購物街，約 600 公尺長、150 間店，下飛機暖身、買零食補給最適合。",kid:"涼爽好逛，不怕熱"},
@@ -276,7 +288,7 @@ const days = [
  },
  {
   n:2, date:"7/21 (二)", title:"四國水族館・跨海一日遊", where:["宇多津(四國)","廣島 泊"],
-  trip:{main:[{r:"博多 → 廣島",t:"07:15~08:16",tr:""},{r:"廣島 → 岡山",t:"09:18~09:57",tr:""},{r:"岡山 → 宇多津",t:"10:05~10:39",tr:""},{r:"宇多津 → 岡山",t:"18:06~18:41",tr:""},{r:"岡山 → 廣島",t:"20:26~21:02",tr:""}],backup:[]},
+  trip:{main:[{r:"博多 → 廣島",t:"07:15~08:16",tr:"新幹線 のぞみ/みずほ（希望/瑞穗號）",x:"直達",pf:"博多 11~16號月台（以現場看板為準）"},{r:"廣島 → 岡山",t:"09:18~09:57",tr:"新幹線 さくら/のぞみ（櫻/希望號）",x:"直達",pf:"廣島 新幹線月台（以現場看板為準）"},{r:"岡山 → 宇多津",t:"10:05~10:39",tr:"快速マリンライナー（Marine Liner 海洋號）",x:"直達",pf:"岡山 在來線月台（Marine Liner 常在 5~8號・以看板為準）"},{r:"宇多津 → 岡山",t:"18:06~18:41",tr:"快速マリンライナー（Marine Liner 海洋號）",x:"直達",pf:"宇多津 月台（以現場看板為準）"},{r:"岡山 → 廣島",t:"20:26~21:02",tr:"新幹線 のぞみ/さくら（希望/櫻號）",x:"直達",pf:"岡山 新幹線月台（以現場看板為準）"}],backup:[]},
   train:{tag:"JR 往返",txt:"博多→廣島→岡山→宇多津（往返）"},
   spots:[
    {h:"四國水族館",wiki:"Shikoku Aquarium",p:"位於香川宇多津、瀨戶內海畔的話題水族館，以『四國之水』為主題，夕陽時分的海豚表演背襯瀨戶內海超夢幻，是這天的孩子主場。",kid:"孩子主場🐬（跨海到四國）"},
@@ -290,7 +302,7 @@ const days = [
  },
  {
   n:3, date:"7/22 (三)", title:"宮島・海上鳥居", where:["宮島","廣島 泊"],
-  trip:{main:[{r:"廣島 → 宮島口",t:"JR＋渡輪（可用 JR Pass）",tr:""}],backup:[]},
+  trip:{main:[{r:"廣島 → 宮島口 → 宮島",t:"JR約28分＋渡輪10分",tr:"JR山陽本線 → JR渡輪",x:"換車：宮島口轉渡輪",pf:"廣島 在來線月台（以現場看板為準）"}],backup:[]},
   train:{tag:"JR＋渡輪",txt:"廣島 → 宮島口（Ferry 可用 JR Pass）"},
   spots:[
    {h:"嚴島神社 大鳥居",wiki:"Itsukushima Shrine torii",p:"漲潮如浮在海上、退潮可走到鳥居腳下——一天看兩種樣貌的世界遺產，記得先查潮汐表。"},
@@ -305,8 +317,8 @@ const days = [
  },
  {
   n:4, date:"7/23 (四)", title:"廣島・和平與歷史 → 豪斯登堡", where:["廣島 → 豪斯登堡","豪斯登堡 泊"],
-  trip:{main:[{r:"廣島 → 豪斯登堡",t:"15:52~19:11",tr:""}],backup:[]},
-  train:{tag:"JR 3:30",txt:"廣島→豪斯登堡（15:52~19:11）"},
+  trip:{main:[{r:"廣島 → 豪斯登堡",t:"16:03~19:20",tr:"新幹線 → 在來線特急",x:"換車：博多/武雄溫泉轉乘",pf:"廣島 新幹線月台（以現場看板為準）"}],backup:[]},
+  train:{tag:"JR 3:17",txt:"廣島→豪斯登堡（16:03~19:20）"},
   spots:[
    {h:"和平紀念公園＋原爆圓頂",wiki:"Hiroshima Peace Memorial dome",p:"靜謐而震撼的世界遺產，適合與青少年談談歷史與和平，是一堂走入現場的生命教育課。"},
    {h:"廣島紙鶴塔 Orizuru Tower",wiki:"Orizuru Tower Hiroshima",p:"頂樓開放露台俯瞰圓頂與市區，還能自己摺紙鶴投入透明牆，玻璃溜滑梯下樓超刺激。",kid:"摺紙鶴＋溜滑梯"},
@@ -332,7 +344,7 @@ const days = [
  },
  {
   n:6, date:"7/25 (六)", title:"熊本・城下美食", where:["熊本","熊本 泊"],
-  trip:{main:[{r:"豪斯登堡 → 熊本",t:"08:51~11:16",tr:""}],backup:[]},
+  trip:{main:[{r:"豪斯登堡 → 熊本",t:"08:51~11:16",tr:"在來線特急 → 新幹線",x:"換車：早岐/武雄溫泉轉乘",pf:"豪斯登堡站 月台（以現場看板為準）"}],backup:[]},
   train:{tag:"JR 2:05",txt:"豪斯登堡 → 熊本"},
   spots:[
    {h:"熊本城",wiki:"Kumamoto Castle",p:"日本三大名城之一，震災修復後重新開放，可走特設空中迴廊近看石垣與天守。"},
@@ -346,7 +358,7 @@ const days = [
  },
  {
   n:7, date:"7/26 (日)", title:"阿蘇・神社與水源", where:["阿蘇","熊本 泊"],
-  trip:{main:[{r:"熊本 → 宮地",t:"09:57~11:32",tr:"あそぼーい！1号"},{r:"宮地 → 熊本",t:"16:37~18:06",tr:"豊肥本線"}],backup:[{label:"備案1",legs:[{r:"熊本 → 宮地",t:"08:25~10:00",tr:"豊肥本線"},{r:"宮地 → 熊本",t:"15:48~17:08",tr:"あそぼーい！4号"}]},{label:"備案2",legs:[{r:"熊本 → 宮地",t:"08:25~10:00",tr:"豊肥本線"},{r:"宮地 → 熊本",t:"16:37~18:06",tr:"豊肥本線"}]}]},
+  trip:{main:[{r:"熊本 → 宮地",t:"09:57~11:32",tr:"あそぼーい！1号（阿蘇男孩號）",x:"直達",pf:"熊本 豐肥本線月台（以現場看板為準）"},{r:"宮地 → 熊本",t:"16:37~18:06",tr:"豊肥本線 普通/特急（豐肥本線）",x:"直達",pf:"宮地 月台（以現場看板為準）"}],backup:[{label:"備案1",legs:[{r:"熊本 → 宮地",t:"08:25~10:00",tr:"豊肥本線（豐肥本線）"},{r:"宮地 → 熊本",t:"15:48~17:08",tr:"あそぼーい！4号（阿蘇男孩號）"}]},{label:"備案2",legs:[{r:"熊本 → 宮地",t:"08:25~10:00",tr:"豊肥本線（豐肥本線）"},{r:"宮地 → 熊本",t:"16:37~18:06",tr:"豊肥本線（豐肥本線）"}]}]},
   train:{tag:"豐肥本線",txt:"熊本⇄阿蘇（往返當日）"},
   spots:[
    {h:"阿蘇神社",wiki:"Aso Shrine",p:"本日主景點。日本三大樓門之一，震後重建完成，門前『水基巡禮』湧泉小鎮可邊走邊喝名水，是阿蘇最有人氣的散策地。",kid:"門前町散策"},
@@ -360,7 +372,7 @@ const days = [
  },
  {
   n:8, date:"7/27 (一)", title:"由布院・溫泉小鎮", where:["由布院","由布院 泊"],
-  trip:{main:[{r:"熊本 → 久留米",t:"07:45~08:15",tr:""},{r:"熊本 → 由布院",t:"09:17~11:31",tr:"ゆふいんの森 1号"}],backup:[{label:"備案1",legs:[{r:"熊本 → 由布院",t:"10:47~12:32",tr:"ゆふいんの森 3号"}]},{label:"備案2",legs:[{r:"熊本 → 由布院",t:"08:25~10:02",tr:"ゆふ 1号"}]}]},
+  trip:{main:[{r:"熊本 → 久留米",t:"07:45~08:15",tr:"新幹線 つばめ/さくら（燕/櫻號）",x:"直達",pf:"熊本 新幹線月台（以現場看板為準）"},{r:"久留米 → 由布院",t:"09:17~11:31",tr:"ゆふいんの森 1号（由布院之森）",x:"換車：久留米轉乘（此為由布院之森上車站）",pf:"久留米 在來線月台（以現場看板為準）"}],backup:[{label:"備案1",legs:[{r:"熊本 → 由布院",t:"10:47~12:32",tr:"ゆふいんの森 3号（由布院之森）"}]},{label:"備案2",legs:[{r:"熊本 → 由布院",t:"08:25~10:02",tr:"ゆふ 1号（由布號）"}]}]},
   train:{tag:"由布院之森 2:08",txt:"熊本 → 由布院（特色列車）"},
   spots:[
    {h:"由布院之森（列車本身）",wiki:"Yufuin no Mori train",p:"墨綠色復古觀光列車，木質車廂＋大觀景窗，搭車就是行程亮點，記得提前劃位。",kid:"夢幻觀光列車🚃"},
@@ -388,7 +400,7 @@ const days = [
  },
  {
   n:10, date:"7/29 (三)", title:"大分 → 延岡・移動日", where:["大分 → 延岡","延岡 泊"],
-  trip:{main:[{r:"由布院 → 大分",t:"12:32~13:18",tr:"ゆふいんの森 3号"},{r:"大分 → 延岡",t:"14:11~14:18",tr:""}],backup:[{label:"備案1",legs:[{r:"由布院 → 大分",t:"14:45~15:29",tr:"ゆふ 3号"},{r:"大分 → 延岡",t:"16:14~18:18",tr:"にちりん 11号"}]}]},
+  trip:{main:[{r:"由布院 → 大分",t:"12:32~13:18",tr:"ゆふいんの森 3号（由布院之森）",x:"直達",pf:"由布院 月台（以現場看板為準）"},{r:"大分 → 延岡",t:"14:11~14:18",tr:"特急 にちりん（日輪號）",x:"換車：大分轉乘",pf:"大分 月台（以現場看板為準）"}],backup:[{label:"備案1",legs:[{r:"由布院 → 大分",t:"14:45~15:29",tr:"ゆふ 3号（由布號）"},{r:"大分 → 延岡",t:"16:14~18:18",tr:"にちりん 11号（日輪號）"}]}]},
   train:{tag:"JR 0:46＋2:03",txt:"由布院→大分→延岡"},
   spots:[
    {h:"大分轉乘小停留",wiki:"Oita Station",p:"於大分站轉車，可順遊站前商業設施 JR Oita City 或補給午餐。"},
@@ -401,7 +413,7 @@ const days = [
  },
  {
   n:11, date:"7/30 (四)", title:"高千穗峽・神話峽谷", where:["高千穗峽","延岡 泊"],
-  trip:{main:[{r:"🚌 去程 延岡 → 高千穗（巴士）",t:"06:50~08:10",tr:""},{r:"🚣 高千穗峽 划船預約",t:"09:30（務必準時）",tr:""},{r:"🚌 回程 高千穗 → 延岡（巴士）",t:"15:40~17:00（週四）",tr:""}],backup:[]},
+  trip:{main:[{r:"🚌 去程 延岡 → 高千穗（巴士）",t:"06:50~08:10",tr:"宮崎交通巴士",x:"直達",pf:"延岡站前巴士站"},{r:"🚣 高千穗峽 划船預約",t:"09:30（務必準時）",tr:""},{r:"🚌 回程 高千穗 → 延岡（巴士）",t:"15:40~17:00（週四）",tr:"宮崎交通巴士",x:"直達",pf:"高千穗巴士中心"}],backup:[]},
   train:{tag:"巴士往返",txt:"延岡⇄高千穗（去06:50 / 回15:40）"},
   spots:[
    {h:"高千穗峽 划船",wiki:"Takachiho Gorge boat",p:"碧綠溪谷中親手划船靠近 17 公尺的真名井瀑布，柱狀玄武岩夾道，是九州最夢幻的體驗之一。已預約 9:30 時段，請準時抵達。",kid:"親子划船🚣（9:30 預約）"},
@@ -415,7 +427,7 @@ const days = [
  },
  {
   n:12, date:"7/31 (五)", title:"鹿兒島・南國風情", where:["鹿兒島","鹿兒島 泊"],
-  trip:{main:[{r:"延岡 → 南宮崎",t:"08:03~09:20",tr:""},{r:"南宮崎 → 鹿兒島中央",t:"09:25~11:28",tr:""}],backup:[]},
+  trip:{main:[{r:"延岡 → 南宮崎",t:"08:03~09:20",tr:"特急 にちりん（日輪號）",x:"換車：南宮崎轉乘",pf:"延岡 月台（以現場看板為準）"},{r:"南宮崎 → 鹿兒島中央",t:"09:25~11:28",tr:"特急 きりしま（霧島號）",x:"直達",pf:"南宮崎 月台（以現場看板為準）"}],backup:[]},
   train:{tag:"JR 3:39",txt:"延岡 → 鹿兒島中央（CUTE 2Day Pass）"},
   spots:[
    {h:"天文館通",wiki:"Tenmonkan Kagoshima",p:"鹿兒島最熱鬧的有頂拱廊街，必吃名物『白熊冰』——巨大刨冰淋煉乳水果，孩子瞬間融化。",kid:"白熊冰🍧"},
@@ -445,7 +457,7 @@ const days = [
  },
  {
   n:14, date:"8/2 (日)", title:"太宰府・門司港・福岡塔", where:["福岡","福岡 泊"],
-  trip:{main:[{r:"鹿兒島中央 → 博多",t:"08:32~09:51",tr:""}],backup:[]},
+  trip:{main:[{r:"鹿兒島中央 → 博多",t:"08:32~09:51",tr:"新幹線 みずほ/さくら（瑞穗/櫻號）",x:"直達",pf:"鹿兒島中央 新幹線月台（以現場看板為準）"}],backup:[]},
   train:{tag:"JR 1:20",txt:"鹿兒島中央 → 博多（太宰府柳川套票）"},
   spots:[
    {h:"太宰府天滿宮",wiki:"Dazaifu Tenmangu",p:"學問之神所在，國中生來拜考運最應景，參道梅枝餅熱呼呼必嚐。",kid:"求學業御守＋梅枝餅"},
@@ -477,6 +489,18 @@ const cont = document.getElementById('days');
 
 // 住宿花費（日幣，部分為跨夜同一筆訂房；空白＝併入前一筆）
 const cost = {1:5851,2:8591,3:null,4:10807,5:null,6:5769,7:4247,8:15885,9:null,10:11518,11:null,12:7296,13:null,14:6358,15:null};
+
+// 訂房詳情（來自 Agoda）：編號、房型、入住人數、check-in/out
+const hotelInfo = {
+ 1:  {no:"1689205547", room:"Japanese Room（禁菸）", pax:"3大1童", inout:"7/20 15:00 in / 7/21 12:00 out"},
+ 2:  {no:"1689063886", room:"Connecting Room 4人（禁菸）", pax:"3大1童", inout:"7/21 15:00 in / 7/23 10:00 out（連住2晚）"},
+ 4:  {no:"1694705049", room:"Triple Room（禁菸）", pax:"3大", inout:"7/23 15:00 in / 7/25 11:00 out（連住2晚）", warn:"⚠️ 此筆訂單為 3 大人、未含兒童，全家 4 人請向 Agoda 確認可否加人"},
+ 6:  {no:"1689143757 / 1689066356", room:"Standard Twin（7/25）＋ Deluxe Twin（7/26）", pax:"3大1童", inout:"7/25 15:00 in / 7/27 11:00 out", warn:"⚠️ 為兩筆不同訂單、房型不同，7/26 可能需換房，check-in 時確認"},
+ 8:  {no:"1694614167", room:"Two-Bedroom House", pax:"3大1童", inout:"7/27 15:00 in / 7/29 10:00 out（連住2晚）"},
+ 10: {no:"1689187695", room:"Standard 和洋室・西館", pax:"3大1童", inout:"7/29 15:00 in / 7/31 10:00 out（連住2晚）"},
+ 12: {no:"1689146526", room:"Connecting Room 4人（禁菸）", pax:"3大1童", inout:"7/31 15:00 in / 8/2 10:00 out（連住2晚）"},
+ 14: {no:"1689211087", room:"Superior Twin（禁菸）", pax:"3大1童", inout:"8/2 15:00 in / 8/3 11:00 out"},
+};
 const fmtY = v => "¥"+Number(v).toLocaleString();
 const totalCost = Object.values(cost).reduce((a,b)=>a+(b||0),0);
 
@@ -507,7 +531,10 @@ days.forEach(d=>{
      return `<li><button class="rainlink" onclick="openPhotos('${key.replace(/'/g,"\\'")}')" title="點擊看照片">${r} <span class="cam">📷</span></button></li>`;
   }).join('');
 
-  const legRow = l=>`<div class="leg-row"><span class="leg-route">${l.r}</span>${l.tr?`<span class="leg-train">${l.tr}</span>`:''}<span class="leg-time">${l.t}</span></div>`;
+  const legRow = l=>`<div class="leg-row">
+      <div class="leg-top">${l.x?`<span class="leg-x ${l.x==='直達'?'direct':'change'}">${l.x==='直達'?'🟢 直達':'🟠 '+l.x}</span>`:''}<span class="leg-route">${l.r}</span></div>
+      <div class="leg-meta">${l.tr?`<span class="leg-train">${l.tr}</span>`:''}<span class="leg-time">${l.t}</span>${l.pf?`<span class="leg-pf">🚉 ${l.pf}</span>`:''}</div>
+    </div>`;
   let tripHTML='';
   if(d.trip){
     tripHTML = d.trip.main.map(legRow).join('');
@@ -540,6 +567,12 @@ days.forEach(d=>{
      <div class="rainbox"><ul>${rainHTML}</ul></div>
      <div class="section-title"><span class="ic stay">🏨</span>住宿</div>
      <div class="chips"><a class="chip stay foodmap" target="_blank" rel="noopener" href="${mapUrl(d.stay)}" title="開啟地圖">🛏 ${d.stay} <span class="pin">📍</span></a>${cost[d.n]?`<span class="chip cost">💰 住宿 ${fmtY(cost[d.n])}</span>`:(d.n>1&&d.stay===days[d.n-2].stay?`<span class="chip cost dim">💰 同前一晚訂房</span>`:'')}</div>
+     ${hotelInfo[d.n]?`<div class="hotel-detail">
+        <div class="hd-row"><span class="hd-k">訂單編號</span><span class="hd-v mono">${hotelInfo[d.n].no}</span></div>
+        <div class="hd-row"><span class="hd-k">房型</span><span class="hd-v">${hotelInfo[d.n].room}</span></div>
+        <div class="hd-row"><span class="hd-k">入住</span><span class="hd-v">${hotelInfo[d.n].pax}・${hotelInfo[d.n].inout}</span></div>
+        ${hotelInfo[d.n].warn?`<div class="hd-warn">${hotelInfo[d.n].warn}</div>`:''}
+      </div>`:''}
    </div>`;
   cont.appendChild(el);
 });

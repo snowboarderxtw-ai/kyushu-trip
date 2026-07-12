@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JR 指定席予約リスト ｜ 訂票清單</title>
+<style>
+:root{--ink:#12212f;--sub:#5c6b7a;--line:#dfe6ee;--sky:#1c5e8c;--sky2:#2a7fb8;--leaf:#2f8f63;--warn:#c2410c;--bg:#f4f7fb;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP","Noto Sans TC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 60px}
+header{background:linear-gradient(135deg,#1c5e8c,#2a7fb8);color:#fff;padding:26px 18px;text-align:center}
+header h1{font-size:21px;letter-spacing:1px}
+header .sub{font-size:13px;opacity:.9;margin-top:4px}
+.reqbox{background:#fff;border:2px solid var(--sky);border-radius:14px;margin:16px 0;padding:16px 18px}
+.reqbox .jp{font-size:18px;font-weight:700;color:var(--sky)}
+.reqbox .cn{font-size:13px;color:var(--sub);margin-top:4px}
+.pax{display:inline-flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pax span{background:#eef4fa;border:1px solid #cfe0f0;color:var(--sky);border-radius:8px;padding:4px 12px;font-size:14px;font-weight:600}
+.day{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:16px 0;overflow:hidden;box-shadow:0 6px 18px rgba(20,45,75,.06)}
+.day-h{background:linear-gradient(100deg,#eef5fb,#eef7f1);padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.day-h .date{font-size:17px;font-weight:800;color:var(--sky)}
+.day-h .note{font-size:12.5px;color:var(--sub)}
+.legs{padding:6px 16px 14px}
+.leg{border-bottom:1px dashed #e6ebf1;padding:12px 0}
+.leg:last-child{border-bottom:0}
+.leg .route{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.leg .stn{font-size:19px;font-weight:800}
+.leg .arrow{color:var(--sky2);font-size:18px;font-weight:700}
+.leg .train{display:inline-block;margin-top:6px;background:#fff3e6;border:1px solid #f3d3ac;color:var(--warn);border-radius:8px;padding:3px 10px;font-size:14px;font-weight:700}
+.leg .time{display:inline-block;margin-top:6px;margin-left:6px;background:#eef4fa;border:1px solid #cfe0f0;color:var(--sky);border-radius:8px;padding:3px 10px;font-size:15px;font-weight:700}
+.leg .cn{font-size:12.5px;color:var(--sub);margin-top:5px}
+.backup{margin:2px 16px 14px;background:#fbfcfe;border:1px dashed #c7d2de;border-radius:10px;padding:4px 12px 10px}
+.backup .btag{display:inline-block;background:#eef2f7;color:#556;border-radius:7px;padding:2px 9px;font-size:12px;font-weight:700;margin:8px 0 2px}
+.backup .leg{padding:8px 0}
+.backup .stn{font-size:16px}
+.backup .time{font-size:13px}
+.foot{text-align:center;color:var(--sub);font-size:12px;margin-top:22px}
+.phrase{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:18px}
+.phrase h3{font-size:14px;color:var(--sky);margin-bottom:8px}
+.phrase .row{display:flex;gap:8px;padding:6px 0;border-bottom:1px dashed #eef1f5;font-size:14px}
+.phrase .row:last-child{border-bottom:0}
+.phrase .row .j{font-weight:700;flex:1}
+.phrase .row .c{color:var(--sub);flex:1;font-size:12.5px}
+@media print{body{background:#fff}.day,.reqbox,.phrase{box-shadow:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>JR 指定席 予約リスト</h1>
+  <div class="sub">JR 指定席訂票清單 ｜ みどりの窓口で係員にお見せください</div>
+</header>
+<div class="wrap">
+
+  <div class="reqbox">
+    <div class="jp">すみません、下記の指定席を予約したいです。</div>
+    <div class="cn">不好意思，我想預約以下的指定席（對號座）。</div>
+    <div class="pax">
+      <span>大人 2名（おとな2）</span>
+      <span>子供 2名（こども：13歳・11歳）</span>
+    </div>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="phrase">
+    <h3>🗣 よく使うフレーズ / 常用句</h3>
+    <div class="row"><span class="j">窓側の席をお願いします。</span><span class="c">請給我靠窗的位子</span></div>
+    <div class="row"><span class="j">4人が隣同士に座れますか？</span><span class="c">四個人可以坐一起嗎？</span></div>
+    <div class="row"><span class="j">この列車は満席ですか？</span><span class="c">這班車客滿了嗎？</span></div>
+    <div class="row"><span class="j">次の空いている列車は何時ですか？</span><span class="c">下一班有位子的是幾點？</span></div>
+    <div class="row"><span class="j">JRパスを使います。</span><span class="c">我要用 JR Pass</span></div>
+  </div>
+
+  <div class="foot">2026 九州家族旅行 ｜ 大人2・子供2（13/11歳）<br>※ バックアップ（備案）は満席時の代替案です</div>
+</div>
+
+<script>
+const days = [{"date": "7/21 (二)", "note": "四國水族館一日遊（博多↔廣島↔岡山↔宇多津）", "main": [{"cn": "博多 → 廣島", "from": "博多", "to": "広島（ひろしま）", "time": "07:15~08:16", "train_cn": "", "train_jp": ""}, {"cn": "廣島 → 岡山", "from": "広島", "to": "岡山（おかやま）", "time": "09:18~09:57", "train_cn": "", "train_jp": ""}, {"cn": "岡山 → 宇多津", "from": "岡山", "to": "宇多津（うたづ）", "time": "10:05~10:39", "train_cn": "", "train_jp": ""}, {"cn": "宇多津 → 岡山", "from": "宇多津", "to": "岡山（おかやま）", "time": "18:06~18:41", "train_cn": "", "train_jp": ""}, {"cn": "岡山 → 廣島", "from": "岡山", "to": "広島（ひろしま）", "time": "20:26~21:02", "train_cn": "", "train_jp": ""}], "backup": []}, {"date": "7/22 (三)", "note": "廣島 → 宮島口", "main": [{"cn": "廣島 → 宮島口（渡輪可用 JR Pass，不需劃位）", "from": "広島", "to": "宮島口（みやじまぐち）", "time": "不須預約 / 予約不要", "train_cn": "", "train_jp": ""}], "backup": []}, {"date": "7/23 (四)", "note": "廣島 → 豪斯登堡", "main": [{"cn": "廣島 → 豪斯登堡", "from": "広島", "to": "ハウステンボス", "time": "16:52~20:23", "train_cn": "", "train_jp": ""}], "backup": []}, {"date": "7/25 (六)", "note": "豪斯登堡 → 熊本", "main": [{"cn": "豪斯登堡 → 熊本", "from": "ハウステンボス", "to": "熊本（くまもと）", "time": "08:51~11:16", "train_cn": "", "train_jp": ""}], "backup": []}, {"date": "7/26 (日)", "note": "阿蘇（熊本↔宮地）", "main": [{"cn": "熊本 → 宮地", "from": "熊本", "to": "宮地（みやじ）", "time": "09:57~11:32", "train_cn": "ASO Boy No1", "train_jp": "あそぼーい！1号"}, {"cn": "宮地 → 熊本", "from": "宮地", "to": "熊本（くまもと）", "time": "16:37~18:06", "train_cn": "肥後本線", "train_jp": "豊肥本線（ほうひほんせん）"}], "backup": [{"label": "備案1 / バックアップ1", "legs": [{"cn": "熊本 → 宮地", "from": "熊本", "to": "宮地（みやじ）", "time": "08:25~10:00", "train_cn": "肥後本線", "train_jp": "豊肥本線"}, {"cn": "宮地 → 熊本", "from": "宮地", "to": "熊本（くまもと）", "time": "15:48~17:08", "train_cn": "Aso Boy No4", "train_jp": "あそぼーい！4号"}]}, {"label": "備案2 / バックアップ2", "legs": [{"cn": "熊本 → 宮地", "from": "熊本", "to": "宮地（みやじ）", "time": "08:25~10:00", "train_cn": "肥後本線", "train_jp": "豊肥本線"}, {"cn": "宮地 → 熊本", "from": "宮地", "to": "熊本（くまもと）", "time": "16:37~18:06", "train_cn": "肥後本線", "train_jp": "豊肥本線"}]}]}, {"date": "7/27 (一)", "note": "熊本 → 由布院", "main": [{"cn": "熊本 → 久留米", "from": "熊本", "to": "久留米（くるめ）", "time": "07:45~08:15", "train_cn": "", "train_jp": ""}, {"cn": "久留米/熊本 → 由布院", "from": "熊本", "to": "由布院（ゆふいん）", "time": "09:17~11:31", "train_cn": "Yufuin no Mori No1", "train_jp": "ゆふいんの森 1号"}], "backup": [{"label": "備案1 / バックアップ1", "legs": [{"cn": "熊本 → 久留米", "from": "熊本", "to": "久留米（くるめ）", "time": "07:45~08:15", "train_cn": "", "train_jp": ""}, {"cn": "熊本 → 由布院", "from": "熊本", "to": "由布院（ゆふいん）", "time": "10:47~12:32", "train_cn": "Yufuin no Mori No3", "train_jp": "ゆふいんの森 3号"}]}, {"label": "備案2 / バックアップ2", "legs": [{"cn": "熊本 → 久留米", "from": "熊本", "to": "久留米（くるめ）", "time": "07:45~08:15", "train_cn": "", "train_jp": ""}, {"cn": "熊本 → 由布院", "from": "熊本", "to": "由布院（ゆふいん）", "time": "08:25~10:02", "train_cn": "Yufuin 1", "train_jp": "ゆふ 1号"}]}]}, {"date": "7/29 (三)", "note": "由布院 → 延岡", "main": [{"cn": "由布院 → 大分", "from": "由布院", "to": "大分（おおいた）", "time": "12:32~13:18", "train_cn": "Yufuin no Mori No3", "train_jp": "ゆふいんの森 3号"}, {"cn": "大分 → 延岡", "from": "大分", "to": "延岡（のべおか）", "time": "14:11~14:18", "train_cn": "", "train_jp": ""}], "backup": [{"label": "備案1 / バックアップ1", "legs": [{"cn": "由布院 → 大分", "from": "由布院", "to": "大分（おおいた）", "time": "14:45~15:29", "train_cn": "由布3", "train_jp": "ゆふ 3号"}, {"cn": "大分 → 延岡", "from": "大分", "to": "延岡（のべおか）", "time": "16:14~18:18", "train_cn": "日輪 11", "train_jp": "にちりん 11号"}]}]}, {"date": "7/31 (五)", "note": "延岡 → 鹿兒島中央", "main": [{"cn": "延岡 → 南宮崎", "from": "延岡", "to": "南宮崎（みなみみやざき）", "time": "08:03~09:20", "train_cn": "", "train_jp": ""}, {"cn": "南宮崎 → 鹿兒島中央", "from": "南宮崎", "to": "鹿児島中央（かごしまちゅうおう）", "time": "09:25~11:28", "train_cn": "", "train_jp": ""}], "backup": []}, {"date": "8/2 (日)", "note": "鹿兒島中央 → 博多", "main": [{"cn": "鹿兒島中央 → 博多", "from": "鹿児島中央", "to": "博多（はかた）", "time": "08:32~09:51", "train_cn": "", "train_jp": ""}], "backup": []}];
+const box = document.getElementById('list');
+
+function legHTML(l, small){
+  const train = l.train_jp ? `<span class="train">${l.train_jp}</span>` : '';
+  const time = `<span class="time">${l.time}</span>`;
+  return `<div class="leg">
+    <div class="route"><span class="stn">${l.from}</span><span class="arrow">→</span><span class="stn">${l.to}</span></div>
+    <div>${train}${time}</div>
+    <div class="cn">${l.cn}</div>
+  </div>`;
+}
+
+days.forEach(d=>{
+  let legs = d.main.map(l=>legHTML(l)).join('');
+  let backups = '';
+  if(d.backup && d.backup.length){
+    backups = d.backup.map(b=>
+      `<div class="backup"><span class="btag">${b.label}</span>`
+      + b.legs.map(l=>legHTML(l,true)).join('') + `</div>`).join('');
+  }
+  const el = document.createElement('div');
+  el.className='day';
+  el.innerHTML = `<div class="day-h"><span class="date">${d.date}</span><span class="note">${d.note}</span></div>
+    <div class="legs">${legs}</div>${backups}`;
+  box.appendChild(el);
+});
+</script>
+</body>
+</html>

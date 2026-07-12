@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 九州家族旅行 ｜ 7/20 – 8/3</title>
+<style>
+:root{
+  --ink:#1d2733; --sub:#5a6b7b; --line:#e3e8ee; --paper:#fbfcfe;
+  --sky:#2a7fb8; --sky-d:#1c5e8c; --sun:#f0a124; --leaf:#3a9b6e;
+  --rain:#6c7a8c; --card:#ffffff; --shadow:0 10px 30px rgba(20,45,75,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Hiragino Sans","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  color:var(--ink); background:linear-gradient(180deg,#eef4fb,#f7f9fc 280px);
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+
+/* HERO */
+header.hero{
+  position:relative; overflow:hidden; color:#fff; text-align:center;
+  padding:64px 18px 80px;
+  background:linear-gradient(135deg,#1c5e8c 0%,#2a7fb8 45%,#3a9b6e 100%);
+}
+header.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:60px;
+  background:radial-gradient(circle at 50% 0,transparent 18px,#f7f9fc 19px) repeat-x;
+  background-size:46px 60px;
+}
+.hero h1{font-size:clamp(28px,5vw,46px);letter-spacing:2px;text-shadow:0 2px 14px rgba(0,0,0,.18)}
+.hero .dates{margin-top:10px;font-size:18px;opacity:.95;letter-spacing:1px}
+.hero .meta{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero .pill{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+  padding:6px 14px;border-radius:999px;font-size:13px;backdrop-filter:blur(4px)}
+.hero .clouds span{position:absolute;background:rgba(255,255,255,.16);border-radius:50px;filter:blur(2px)}
+.c1{width:160px;height:46px;top:40px;left:8%}
+.c2{width:120px;height:36px;top:90px;right:10%}
+.c3{width:90px;height:28px;top:30px;right:24%}
+
+/* NAV */
+nav.daynav{position:sticky;top:0;z-index:50;background:rgba(247,249,252,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 0}
+nav.daynav .scroll{display:flex;gap:8px;overflow-x:auto;padding:2px 18px;max-width:1000px;margin:0 auto}
+nav.daynav a{flex:0 0 auto;font-size:13px;text-decoration:none;color:var(--sub);
+  border:1px solid var(--line);background:#fff;padding:6px 12px;border-radius:10px;white-space:nowrap;transition:.15s}
+nav.daynav a:hover{color:var(--sky-d);border-color:var(--sky);transform:translateY(-1px)}
+nav.daynav a .num{font-weight:700;color:var(--sky)}
+
+/* DAY CARD */
+.day{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);margin:26px 0;overflow:hidden;scroll-margin-top:70px}
+.day-head{display:flex;align-items:center;gap:16px;padding:20px 22px;
+  background:linear-gradient(100deg,#f4f9ff,#eef6f1);border-bottom:1px solid var(--line)}
+.day-badge{flex:0 0 auto;width:62px;height:62px;border-radius:16px;color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--sky),var(--sky-d));box-shadow:0 6px 16px rgba(42,127,184,.35)}
+.day-badge .d{font-size:11px;opacity:.9;letter-spacing:1px}
+.day-badge .n{font-size:24px;font-weight:800;line-height:1}
+.day-head .info h2{font-size:20px;letter-spacing:1px}
+.day-head .info .where{color:var(--sub);font-size:13.5px;margin-top:3px}
+.day-head .info .where b{color:var(--leaf)}
+.day-head .train{margin-left:auto;text-align:right;font-size:12px;color:var(--rain);max-width:180px}
+.day-head .train .tag{display:inline-block;background:#eef2f7;border-radius:8px;padding:2px 8px;color:var(--sky-d);font-weight:600;margin-bottom:4px}
+
+.day-body{padding:6px 22px 22px}
+.section-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+  letter-spacing:1px;color:var(--sky-d);margin:18px 0 10px;text-transform:uppercase}
+.section-title .ic{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;color:#fff;font-size:12px}
+.ic.spot{background:var(--sky)} .ic.food{background:var(--sun)} .ic.rain{background:var(--rain)} .ic.stay{background:var(--leaf)}
+.ic.trip{background:#7c4dcc}
+.tripbox{background:#f6f4fc;border:1px solid #e2daf5;border-radius:14px;padding:10px 14px;margin-top:4px}
+.leg-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 0;border-bottom:1px dashed #e4dcf3}
+.leg-row:last-child{border-bottom:0}
+.leg-route{font-size:14.5px;font-weight:600;color:var(--ink);flex:1;min-width:150px}
+.leg-train{font-size:12.5px;font-weight:700;background:#fff3e6;border:1px solid #f3d3ac;color:#c2410c;border-radius:7px;padding:2px 9px}
+.leg-time{font-size:14px;font-weight:700;background:#ece5fa;border:1px solid #d3c6f0;color:#5b3aa8;border-radius:7px;padding:2px 10px;white-space:nowrap}
+.trip-backup{margin-top:8px;padding:4px 10px 6px;background:#fbfaff;border:1px dashed #d3c6ee;border-radius:10px}
+.trip-backup .btag{display:inline-block;font-size:12px;font-weight:700;color:#6b5aa0;margin:6px 0 2px}
+.trip-backup .leg-row{padding:5px 0;border-bottom-color:#ece7f6}
+.trip-backup .leg-route{font-size:13.5px}
+.trip-backup .leg-time{font-size:13px}
+
+.spot{border-left:3px solid var(--sky);padding:8px 0 8px 14px;margin:12px 0}
+.spot h3{font-size:16px;margin-bottom:3px}
+.spot p{font-size:14px;color:var(--sub)}
+.spot .kid{display:inline-block;margin-top:6px;font-size:12px;background:#fff7e8;color:#b9791a;
+  border:1px solid #f3dcae;border-radius:8px;padding:2px 9px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;background:#fff8ec;border:1px solid #f3dcae;color:#8a611d;border-radius:10px;padding:6px 12px}
+.chip.stay{background:#eefaf3;border-color:#bfe6cf;color:#26714d}
+.chip.cost{background:#fdeef0;border-color:#f3c2cb;color:#b23a52}
+.chip.cost.dim{background:#f4f5f7;border-color:#dfe3e9;color:#8a93a0}
+.maplink{font-size:11px;font-weight:600;color:var(--sky-d);text-decoration:none;
+  background:#eaf3fb;border:1px solid #c8e0f2;border-radius:7px;padding:1px 7px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.maplink:hover{background:var(--sky);color:#fff;border-color:var(--sky)}
+.spotlink{color:inherit;text-decoration:none;transition:color .15s}
+.spotlink:hover{color:var(--sky)}
+.spotlink .pin{font-size:12px;opacity:.5}
+.spotlink:hover .pin{opacity:1}
+a.chip.foodmap{text-decoration:none;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:4px}
+a.chip.foodmap:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(20,45,75,.12);filter:brightness(1.02)}
+a.chip.foodmap .pin{font-size:11px;opacity:.5}
+a.chip.foodmap:hover .pin{opacity:1}
+.meal-row{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+.meal-label{flex:0 0 auto;font-size:13px;font-weight:700;border-radius:9px;padding:5px 11px;white-space:nowrap;margin-top:2px}
+.meal-label.lunch{background:#fff5e6;color:#c47d1a;border:1px solid #f3d9ac}
+.meal-label.dinner{background:#eef0fb;color:#4a53a8;border:1px solid #ccd0ef}
+.meal-label.other{background:#f2f5f8;color:#5a6b7b;border:1px solid #dbe2ea}
+.meal-row .chips{flex:1}
+.chip.meal-none{background:#f4f5f7;border:1px dashed #d3d9e0;color:#9aa6b3}
+a.chip.foodmap.alt{background:#fbfcfe;border-color:#e3e8ee;color:#5a6b7b}
+a.chip{text-decoration:none;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:4px}
+a.chip.imgable:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(20,45,75,.12);filter:brightness(1.02)}
+.cam{font-size:11px;opacity:.55}
+a.chip:hover .cam{opacity:1}
+.rainlink{color:inherit;text-decoration:none;display:inline-block}
+.rainlink:hover{color:var(--sky-d)}
+.rainlink:hover .cam{opacity:1}
+.rainbox li .cam{opacity:.45;font-size:11px;margin-left:2px}
+button.chip,button.rainlink,button.photobtn{font-family:inherit;cursor:pointer}
+button.rainlink{background:none;border:0;padding:0;text-align:left;color:inherit;font-size:inherit;line-height:inherit}
+.photobtn{border:1px solid #c8e0f2}
+
+/* photo modal */
+.pm-overlay{position:fixed;inset:0;z-index:200;background:rgba(15,30,50,.55);
+  backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:18px}
+.pm-overlay.show{display:flex}
+.pm-box{background:#fff;border-radius:18px;max-width:560px;width:100%;max-height:85vh;
+  display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(10,25,50,.4)}
+.pm-head{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);
+  background:linear-gradient(100deg,#f4f9ff,#eef6f1)}
+.pm-head #pmTitle{font-weight:700;color:var(--ink);font-size:16px;flex:1}
+.pm-close{border:0;background:#e9eef4;width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:15px;color:var(--sub)}
+.pm-close:hover{background:var(--sky);color:#fff}
+.pm-body{padding:14px;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;min-height:120px}
+.pm-body img{width:100%;height:130px;object-fit:cover;border-radius:11px;background:#eef2f7;border:1px solid var(--line)}
+.pm-body .pm-msg{grid-column:1/-1;text-align:center;color:var(--sub);font-size:14px;padding:26px 10px}
+.pm-body .pm-credit{grid-column:1/-1;font-size:11px;color:#9aa6b3;text-align:center;margin-top:-4px}
+.pm-foot{padding:12px 18px;border-top:1px solid var(--line);text-align:center}
+.pm-foot a{display:inline-block;background:var(--sky);color:#fff;text-decoration:none;
+  padding:9px 18px;border-radius:11px;font-size:14px;font-weight:600}
+.pm-foot a:hover{background:var(--sky-d)}
+.pm-spin{grid-column:1/-1;text-align:center;padding:30px;color:var(--sub)}
+
+/* inline photo strips */
+.photostrip{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.photostrip img{width:calc(33.33% - 6px);height:96px;object-fit:cover;border-radius:10px;
+  border:1px solid var(--line);background:#eef2f7;cursor:zoom-in;transition:.15s}
+.photostrip img:hover{transform:scale(1.03);box-shadow:0 5px 14px rgba(20,45,75,.18)}
+.photostrip.empty{display:none}
+.photostrip .ps-skel{width:calc(33.33% - 6px);height:96px;border-radius:10px;
+  background:linear-gradient(100deg,#eef2f7 30%,#f6f9fc 50%,#eef2f7 70%);
+  background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@media(max-width:640px){.photostrip img,.photostrip .ps-skel{width:calc(50% - 4px);height:110px}}
+
+.rainbox{background:#f5f7fa;border:1px dashed #c5cfdb;border-radius:14px;padding:14px 16px;margin-top:8px}
+.rainbox ul{list-style:none}
+.rainbox li{font-size:13.5px;color:var(--sub);padding:5px 0 5px 22px;position:relative;border-bottom:1px dashed #e2e8f0}
+.rainbox li:last-child{border-bottom:0}
+.rainbox li::before{content:"☂";position:absolute;left:0;top:5px;color:var(--rain)}
+.rainbox li b{color:var(--ink)}
+
+footer{text-align:center;color:var(--sub);font-size:13px;padding:40px 18px 60px}
+footer .tips{max-width:640px;margin:0 auto 22px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:18px 22px;text-align:left;box-shadow:var(--shadow)}
+footer .tips h3{color:var(--sky-d);font-size:15px;margin-bottom:8px}
+footer .tips li{font-size:13.5px;margin-left:18px;margin-bottom:5px}
+@media(max-width:640px){
+  .day-head{flex-wrap:wrap}.day-head .train{margin-left:0;text-align:left;max-width:none;width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="clouds"><span class="c1"></span><span class="c2"></span><span class="c3"></span></div>
+  <h1>2026 九州家族大旅行</h1>
+  <div class="dates">7 / 20 (一) &nbsp;→&nbsp; 8 / 3 (一) ｜ 15 天 14 夜</div>
+  <div class="meta">
+    <span class="pill">👨‍👩‍👦‍👦 2 大 2 小（13・11 歲）</span>
+    <span class="pill">🚄 JR Pass 縱貫九州</span>
+    <span class="pill">🌧️ 含雨天 / 備案景點</span>
+    <span class="pill" id="totalpill">💰 住宿合計計算中…</span>
+  </div>
+</header>
+
+<nav class="daynav"><div class="scroll" id="navscroll"></div></nav>
+
+<!-- 照片彈窗 -->
+<div id="photoModal" class="pm-overlay" onclick="if(event.target===this)closePhotos()">
+  <div class="pm-box">
+    <div class="pm-head">
+      <span id="pmTitle">照片</span>
+      <button class="pm-close" onclick="closePhotos()">✕</button>
+    </div>
+    <div id="pmBody" class="pm-body"></div>
+    <div class="pm-foot">
+      <a id="pmGoogle" target="_blank" rel="noopener" href="#">🔍 在 Google 圖片看更多</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="days"></div>
+
+<footer>
+  <div class="tips">
+    <h3>🎒 家族出遊小提醒</h3>
+    <ul>
+      <li>夏季九州炎熱（日均 30–34°C）＋偶有午後雷陣雨，建議帶 <b>折傘＋遮陽帽＋電解質飲料</b>。</li>
+      <li>13・11 歲孩子白天行程拉長易累，每天安排一個「孩子主場」（水族館 / 纜車 / 渡輪 / 溫泉），動靜交替。</li>
+      <li>JR 特色列車（由布院之森、ASO 男孩號）<b>務必提前劃位</b>，暑假超熱門。</li>
+      <li>多數溫泉旅館（由布院 Kotonone、Mai Suzu）以晚餐 + 早餐為亮點，抵達後可早點泡湯放鬆。</li>
+      <li>雨天備案多為室內館所或商店街，已盡量挑「孩子也不無聊」的選項。</li>
+    </ul>
+  </div>
+  製作日期：2026 ｜ 祝旅途平安、天天好天氣 ☀️
+</footer>
+
+<script>
+const days = [
+ {
+  n:1, date:"7/20 (一)", title:"博多・天神逛街日", where:["福岡","博多 泊"],
+  trip:{main:[{r:"✈️ 抵達福岡・前往博多",t:"—",tr:""}],backup:[]},
+  train:{tag:"抵達日",txt:"天神地下街／Kiddy Land"},
+  spots:[
+   {h:"天神地下街",wiki:"Tenjin Chikagai Fukuoka",p:"宛如歐洲石板小巷的地下購物街，約 600 公尺長、150 間店，下飛機暖身、買零食補給最適合。",kid:"涼爽好逛，不怕熱"},
+   {h:"Kiddy Land 天神店",p:"從拉拉熊、三麗鷗到角落生物應有盡有，13・11 歲都會逛到不想走的玩具天堂。",kid:"孩子主場🎈"}
+  ],
+  lunch:[], dinner:["暖慕拉麵"],
+  food:["暖慕拉麵","Yakiniku no Bakuro 肉屋 肉一","焼肉処 石原牛","YAKINIKU TORAJI TENJIN"],
+  stay:"Hakata Green Hotel Building No.1",
+  rain:["<b>JR 博多城</b>：百貨＋頂樓燕林廣場，雨天也能逛上半天","<b>博多運河城</b>：每小時噴泉秀＋拉麵競技場，孩子超愛","<b>福岡 PayPay 巨蛋 / teamLab 等室內</b>視天氣加碼"]
+ },
+ {
+  n:2, date:"7/21 (二)", title:"四國水族館・跨海一日遊", where:["宇多津(四國)","廣島 泊"],
+  trip:{main:[{r:"博多 → 廣島",t:"07:15~08:16",tr:""},{r:"廣島 → 岡山",t:"09:18~09:57",tr:""},{r:"岡山 → 宇多津",t:"10:05~10:39",tr:""},{r:"宇多津 → 岡山",t:"18:06~18:41",tr:""},{r:"岡山 → 廣島",t:"20:26~21:02",tr:""}],backup:[]},
+  train:{tag:"JR 往返",txt:"博多→廣島→岡山→宇多津（往返）"},
+  spots:[
+   {h:"四國水族館",wiki:"Shikoku Aquarium",p:"位於香川宇多津、瀨戶內海畔的話題水族館，以『四國之水』為主題，夕陽時分的海豚表演背襯瀨戶內海超夢幻，是這天的孩子主場。",kid:"孩子主場🐬（跨海到四國）"},
+   {h:"倉敷美觀地區",wiki:"Kurashiki Bikan historical quarter",p:"若時間允許可順遊：白牆老宅與柳樹運河交織的懷舊街區，搭小舟遊河很有味道。",kid:"運河小舟"},
+   {h:"岡山城＋後樂園",wiki:"Okayama Castle Korakuen",p:"回程經岡山可安排：漆黑烏城配日本三名園之一的後樂園，草坪開闊、丹頂鶴悠遊。"}
+  ],
+  lunch:["四國水族館內用餐","味司 野村 多蜜醬炸豬排"], dinner:["マタタビ饂飩店","麺処 綿谷 丸亀店","焼肉 白李 本通店"],
+  food:["マタタビ饂飩店","麺処 綿谷 丸亀店（骨付鳥/烏龍麵）","味司 野村 多蜜醬炸豬排","焼肉 白李 本通店"],
+  stay:"APA HOTEL HIROSHIMA EKIMAE SHINKANSENGUCHI",
+  rain:["水族館本身即室內，雨天完全不受影響","回程於岡山改逛 <b>AEON Mall 岡山 / 天滿屋百貨</b>","<b>倉敷常春藤廣場</b>等室內設施可避雨"]
+ },
+ {
+  n:3, date:"7/22 (三)", title:"宮島・海上鳥居", where:["宮島","廣島 泊"],
+  trip:{main:[{r:"廣島 → 宮島口",t:"JR＋渡輪（可用 JR Pass）",tr:""}],backup:[]},
+  train:{tag:"JR＋渡輪",txt:"廣島 → 宮島口（Ferry 可用 JR Pass）"},
+  spots:[
+   {h:"嚴島神社 大鳥居",wiki:"Itsukushima Shrine torii",p:"漲潮如浮在海上、退潮可走到鳥居腳下——一天看兩種樣貌的世界遺產，記得先查潮汐表。"},
+   {h:"表參道商店街",wiki:"Miyajima Omotesando",p:"邊走邊吃烤牡蠣、紅葉饅頭，還能跟放養的小鹿合照。",kid:"餵鹿、邊走邊吃"},
+   {h:"彌山纜車",wiki:"Mount Misen ropeway",p:"從紅葉谷公園方向走過去約 20~25 分鐘搭纜車，登上 535 公尺山頂看瀨戶內海島嶼群。",kid:"纜車登頂🚡"},
+   {h:"宮島水族館 みやじマリン",wiki:"Miyajima Aquarium",p:"主打瀨戶內海生物與海獺、企鵝，室內好逛，是雨天也完美的備案。",kid:"孩子主場🐧"}
+  ],
+  lunch:["牡蠣穴子飯 Mametanuki（表參道）"], dinner:["廣島牡蠣和和牛拉麵 SEITEN-WO-TSUKE"],
+  food:["牡蠣穴子飯 Mametanuki（表參道）","穴子飯 Ueno（宮島口車站）","烤牡蠣老店 Yakigaki No Hayashi","廣島牡蠣和和牛拉麵 SEITEN-WO-TSUKE","紅葉堂 炸紅葉饅頭"],
+  stay:"APA HOTEL HIROSHIMA EKIMAE SHINKANSENGUCHI",
+  rain:["<b>宮島水族館</b>本身就是最佳雨天行程，直接拉長停留","<b>大聖院</b>：宮島最古老寺院，可避雨參拜","回廣島 <b>本通商店街</b>逛街吃晚餐"]
+ },
+ {
+  n:4, date:"7/23 (四)", title:"廣島・和平與歷史 → 豪斯登堡", where:["廣島 → 豪斯登堡","豪斯登堡 泊"],
+  trip:{main:[{r:"廣島 → 豪斯登堡",t:"15:52~19:11",tr:""}],backup:[]},
+  train:{tag:"JR 3:30",txt:"廣島→豪斯登堡（15:52~19:11）"},
+  spots:[
+   {h:"和平紀念公園＋原爆圓頂",wiki:"Hiroshima Peace Memorial dome",p:"靜謐而震撼的世界遺產，適合與青少年談談歷史與和平，是一堂走入現場的生命教育課。"},
+   {h:"廣島紙鶴塔 Orizuru Tower",wiki:"Orizuru Tower Hiroshima",p:"頂樓開放露台俯瞰圓頂與市區，還能自己摺紙鶴投入透明牆，玻璃溜滑梯下樓超刺激。",kid:"摺紙鶴＋溜滑梯"},
+   {h:"縮景園",wiki:"Shukkeien garden",p:"四百年歷史的池泉迴遊式庭園，過拱橋、看錦鯉，城市裡的綠洲。"}
+  ],
+  lunch:["御好燒 Okonomimura","廣島燒 Micchan 福屋店"], dinner:["豪斯登堡園區"],
+  food:["御好燒 Okonomimura","廣島燒 Micchan 福屋店","陽氣拉麵","尾道拉麵 Men-ya Issei","BAKE CHEESE TART（車站內）"],
+  stay:"Hotel Okura JR Huis Ten Bosch",
+  rain:["<b>御好燒村 Okonomimura</b>：整棟都是廣島燒攤位，雨天吃到飽","<b>廣島 ekie</b> 車站商場：甜點名店集中，好逛好買","下午才移動豪斯登堡，多在車上，影響小"]
+ },
+ {
+  n:5, date:"7/24 (五)", title:"豪斯登堡・歐風樂園", where:["豪斯登堡","豪斯登堡 泊"],
+  trip:{main:[{r:"豪斯登堡園區（不搭車）",t:"—",tr:""}],backup:[]},
+  train:{tag:"全日定點",txt:"園區一日遊"},
+  spots:[
+   {h:"豪斯登堡",wiki:"Huis Ten Bosch",p:"重現荷蘭街景的超大主題樂園：鬱金香、運河遊船、VR 遊樂設施、巨型摩天輪與夜間燈海，是這趟孩子的最大主場。",kid:"整日玩到飽🎡"},
+   {h:"光之王國（夜）",wiki:"Huis Ten Bosch illumination night",p:"全日本最大規模燈飾，入夜後整個園區變成發光世界，務必待到天黑。",kid:"夜間燈海✨"}
+  ],
+  lunch:["豪斯登堡園區"], dinner:["豪斯登堡園區"],
+  food:["Ringer Hut — 長崎強棒麵","お食事処 味路喜","園區餐廳街"],
+  stay:"Hotel Okura JR Huis Ten Bosch",
+  rain:["園內 <b>多為室內館所</b>（VR 館、博物館、餐廳街），雨天照玩","<b>Horizon Adventure</b> 等室內展演可避雨","住宿與園區相連，回房休息再戰很方便"]
+ },
+ {
+  n:6, date:"7/25 (六)", title:"熊本・城下美食", where:["熊本","熊本 泊"],
+  trip:{main:[{r:"豪斯登堡 → 熊本",t:"08:51~11:16",tr:""}],backup:[]},
+  train:{tag:"JR 2:05",txt:"豪斯登堡 → 熊本"},
+  spots:[
+   {h:"熊本城",wiki:"Kumamoto Castle",p:"日本三大名城之一，震災修復後重新開放，可走特設空中迴廊近看石垣與天守。"},
+   {h:"熊本熊部長辦公室（KUMAMON SQUARE）",wiki:"Kumamon Square",p:"市中心鶴屋百貨內，運氣好能看到熊本熊本人出場跳舞，拍照打卡聖地。",kid:"見熊本熊🐻"},
+   {h:"下通／上通商店街",wiki:"Shimotori Kumamoto",p:"熊本最熱鬧的拱廊街，晚餐前後散步購物剛剛好。"}
+  ],
+  lunch:["yoka-yoka 赤牛牛排（熊本城附近）"], dinner:["黒亭拉麵 熊本車站本店"],
+  food:["yoka-yoka 赤牛牛排（熊本城附近）","黒亭拉麵 熊本車站本店","Horumonman 燒肉吃到飽（需提前預約）","お食事処 味路喜"],
+  stay:"ONE STATION HOTEL KUMAMOTO",
+  rain:["<b>KUMAMON SQUARE</b>＋<b>鶴屋百貨</b>：室內一條龍","<b>熊本市現代美術館</b>：免費閱覽區與展覽，舒服避雨","<b>櫻之馬場 城彩苑</b>：城下町商店街，半室內也能吃逛"]
+ },
+ {
+  n:7, date:"7/26 (日)", title:"阿蘇・火山與水源", where:["阿蘇","熊本 泊"],
+  trip:{main:[{r:"熊本 → 宮地",t:"09:57~11:32",tr:"あそぼーい！1号"},{r:"宮地 → 熊本",t:"16:37~18:06",tr:"豊肥本線"}],backup:[{label:"備案1",legs:[{r:"熊本 → 宮地",t:"08:25~10:00",tr:"豊肥本線"},{r:"宮地 → 熊本",t:"15:48~17:08",tr:"あそぼーい！4号"}]},{label:"備案2",legs:[{r:"熊本 → 宮地",t:"08:25~10:00",tr:"豊肥本線"},{r:"宮地 → 熊本",t:"16:37~18:06",tr:"豊肥本線"}]}]},
+  train:{tag:"豐肥本線",txt:"熊本⇄阿蘇（往返當日）"},
+  spots:[
+   {h:"阿蘇火山口",wiki:"Mount Aso crater",p:"可近距離俯瞰冒煙的中岳火山口（視火山活動與天候開放），是震撼的地球現場。",kid:"看真火山🌋"},
+   {h:"草千里之濱",wiki:"Kusasenri Aso",p:"阿蘇五岳環抱的遼闊草原與火口湖，可騎馬、奔跑，天氣好時是明信片般的風景。",kid:"騎馬體驗🐴"},
+   {h:"阿蘇神社",wiki:"Aso Shrine",p:"日本三大樓門之一，震後重建完成，門前『水基巡禮』湧泉小鎮可邊走邊喝名水。"},
+   {h:"水基巡禮（門前町商店街）",wiki:"Aso monzen-machi",p:"沿街十多處湧泉水基，配阿蘇牛奶、馬肉可樂餅、Tanoya 泡芙，散步補給超有趣。"}
+  ],
+  lunch:["青空食堂 AOZORA（11:30–14:30）"], dinner:["門前町商店街 Tanoya 泡芙"],
+  food:["青空食堂 AOZORA（11:30–14:30）","阿蘇 HANABISHI 牛丼（11:00–16:00）","阿蘇馬肉可樂餅","Tanoya 泡芙","ASO MILK"],
+  stay:"ONE STATION HOTEL KUMAMOTO",
+  rain:["火山口可能因天候 / 火山活動封閉，請<b>當日查官網狀況</b>","改走 <b>水基巡禮商店街</b>（半室內）＋神社參拜","回熊本逛 <b>城彩苑 / 百貨</b>，或安排早一班車回市區"]
+ },
+ {
+  n:8, date:"7/27 (一)", title:"由布院・溫泉小鎮", where:["由布院","由布院 泊"],
+  trip:{main:[{r:"熊本 → 久留米",t:"07:45~08:15",tr:""},{r:"熊本 → 由布院",t:"09:17~11:31",tr:"ゆふいんの森 1号"}],backup:[{label:"備案1",legs:[{r:"熊本 → 由布院",t:"10:47~12:32",tr:"ゆふいんの森 3号"}]},{label:"備案2",legs:[{r:"熊本 → 由布院",t:"08:25~10:02",tr:"ゆふ 1号"}]}]},
+  train:{tag:"由布院之森 2:08",txt:"熊本 → 由布院（特色列車）"},
+  spots:[
+   {h:"由布院之森（列車本身）",wiki:"Yufuin no Mori train",p:"墨綠色復古觀光列車，木質車廂＋大觀景窗，搭車就是行程亮點，記得提前劃位。",kid:"夢幻觀光列車🚃"},
+   {h:"湯之坪街道",wiki:"Yufuin Yunotsubo street",p:"通往金鱗湖的人氣商店街，吉卜力周邊、布丁、可樂餅一路吃。",kid:"邊走邊吃＆周邊店"},
+   {h:"金鱗湖",wiki:"Kinrin Lake Yufuin",p:"晨霧繚繞的溫泉湖，清晨水氣最夢幻，傍晚則金光粼粼。"}
+  ],
+  lunch:["釜飯心"], dinner:["萬養軒 18:00–21:00"],
+  food:["釜飯心（午）","萬養軒 18:00–21:00","湯之坪街道甜點巡禮"],
+  stay:"Kotonone Mai Suzu（溫泉旅館）",
+  rain:["<b>由布院 floral village</b>：歐風小村室內店家群","<b>湯之坪橫丁</b>＆多家美術小館可躲雨","旅館本身就是亮點，下雨就早點 <b>入住泡湯</b>放鬆"]
+ },
+ {
+  n:9, date:"7/28 (二)", title:"由布院・慢活泡湯", where:["由布院","由布院 泊"],
+  trip:{main:[{r:"由布院・溫泉小鎮（不搭車）",t:"—",tr:""}],backup:[]},
+  train:{tag:"全日定點",txt:"溫泉小鎮慢遊"},
+  spots:[
+   {h:"金鱗湖晨散步",wiki:"Kinrin Lake Yufuin",p:"早起趁人少繞湖一圈，看霧氣升起，是溫泉小鎮最療癒的開場。"},
+   {h:"狹霧台展望所",wiki:"Sagiridai Yufuin",p:"可眺望由布岳與整片盆地雲海，租車或計程車可達，視野遼闊。"},
+   {h:"旅館慢活日",p:"安排一天不趕路，泡溫泉、吃會席、午後咖啡，讓全家好好充電。",kid:"溫泉＋手作體驗"}
+  ],
+  lunch:["旅館會席料理"], dinner:["旅館會席料理"],
+  food:["旅館會席料理","湯之坪街道甜點巡禮"],
+  stay:"Kotonone Mai Suzu（溫泉旅館）",
+  rain:["這天本就慢步調，雨天最適合 <b>泡湯＋館內休息</b>","<b>由布院音樂盒之森 / 美術小館</b>等室內景點","湯之坪街道有頂店家多，撐傘也能逛"]
+ },
+ {
+  n:10, date:"7/29 (三)", title:"大分 → 延岡・移動日", where:["大分 → 延岡","延岡 泊"],
+  trip:{main:[{r:"由布院 → 大分",t:"12:32~13:18",tr:"ゆふいんの森 3号"},{r:"大分 → 延岡",t:"14:11~14:18",tr:""}],backup:[{label:"備案1",legs:[{r:"由布院 → 大分",t:"14:45~15:29",tr:"ゆふ 3号"},{r:"大分 → 延岡",t:"16:14~18:18",tr:"にちりん 11号"}]}]},
+  train:{tag:"JR 0:46＋2:03",txt:"由布院→大分→延岡"},
+  spots:[
+   {h:"大分轉乘小停留",wiki:"Oita Station",p:"於大分站轉車，可順遊站前商業設施 JR Oita City 或補給午餐。"},
+   {h:"延岡入住",wiki:"Nobeoka",p:"宮崎縣北部小城，作為隔日高千穗峽的前哨站，傍晚輕鬆休息。"}
+  ],
+  lunch:["大分站前補給"], dinner:["Nao-Chan 南蠻雞"],
+  food:["Nao-Chan（南蠻雞）","風の菓子 虎彦 Torahiko"],
+  stay:"APA Hotel Miyazaki Nobeoka-Ekimae",
+  rain:["移動日大多在車上，影響小","大分站 <b>JR Oita City 百貨 / 屋頂庭園</b>可消磨轉車時間","延岡站前 <b>AEON / 商店街</b>採買隔日所需"]
+ },
+ {
+  n:11, date:"7/30 (四)", title:"高千穗峽・神話峽谷", where:["高千穗峽","延岡 泊"],
+  trip:{main:[{r:"延岡 → 高千穗（巴士往返）",t:"—",tr:""}],backup:[]},
+  train:{tag:"巴士前往",txt:"延岡 → 高千穗（巴士）"},
+  spots:[
+   {h:"高千穗峽 划船",wiki:"Takachiho Gorge boat",p:"碧綠溪谷中親手划船靠近 17 公尺的真名井瀑布，柱狀玄武岩夾道，是九州最夢幻的體驗之一。",kid:"親子划船🚣（早點到避免久候）"},
+   {h:"高千穗神社",wiki:"Takachiho Shrine",p:"千年杉木環繞的神話之鄉，夜間有『夜神樂』表演（須確認場次）。"},
+   {h:"國見之丘",wiki:"Kunimigaoka",p:"晴朗清晨可見雲海，是攝影名所。"}
+  ],
+  lunch:["元祖流水麵（流水細麵）"], dinner:["大舞神南蠻雞"],
+  food:["元祖流水麵（流水細麵體驗）","大舞神南蠻雞"],
+  stay:"APA Hotel Miyazaki Nobeoka-Ekimae",
+  rain:["大雨或上游放流時 <b>划船會停駛</b>，請當日查官網","改以 <b>步道散步＋神社參拜</b>，峽谷雨中另有氣氛","延岡市區 <b>室內設施 / 溫泉</b>作為備案"]
+ },
+ {
+  n:12, date:"7/31 (五)", title:"鹿兒島・南國風情", where:["鹿兒島","鹿兒島 泊"],
+  trip:{main:[{r:"延岡 → 南宮崎",t:"08:03~09:20",tr:""},{r:"南宮崎 → 鹿兒島中央",t:"09:25~11:28",tr:""}],backup:[]},
+  train:{tag:"JR 3:39",txt:"延岡 → 鹿兒島中央（CUTE 2Day Pass）"},
+  spots:[
+   {h:"天文館通",wiki:"Tenmonkan Kagoshima",p:"鹿兒島最熱鬧的有頂拱廊街，必吃名物『白熊冰』——巨大刨冰淋煉乳水果，孩子瞬間融化。",kid:"白熊冰🍧"},
+   {h:"鹿兒島水族館 いおワールド",wiki:"Kagoshima City Aquarium",p:"CUTE PASS 有優惠，看鯨鯊與海豚，室內好逛也是雨天備案。",kid:"孩子主場🦈"},
+   {h:"城山展望台",wiki:"Shiroyama Observatory Kagoshima",p:"市區制高點，一覽櫻島火山與市景，黃昏最美。"}
+  ],
+  lunch:["Kuroda 黑田豬排"], dinner:["白熊冰 天文館","拉麵 我流風"],
+  food:["Kuroda 黑田豬排","黑勝亭 中央駅本店","白熊冰 天文館","拉麵 我流風"],
+  stay:"APA Hotel Kagoshima Chuo（連通房）",
+  rain:["<b>鹿兒島水族館 いおワールド</b>：CUTE PASS 有優惠，室內看鯨鯊","<b>天文館通拱廊</b>整條有頂，雨天照吃照逛","<b>維新故鄉館</b>：互動展示明治維新，孩子也看得懂"]
+ },
+ {
+  n:13, date:"8/1 (六)", title:"櫻島・活火山探險", where:["櫻島","鹿兒島 泊"],
+  trip:{main:[{r:"櫻島渡輪＋觀光巴士（CUTE Pass）",t:"—",tr:""}],backup:[]},
+  train:{tag:"CUTE 2Day Pass",txt:"渡輪＋觀光巴士（可用 CUTE PASS）"},
+  spots:[
+   {h:"櫻島渡輪",wiki:"Sakurajima ferry",p:"15 分鐘跨海到活火山島，船上吃『やぶ金烏龍麵』是在地玩法。",kid:"短程渡輪⛴"},
+   {h:"湯之平展望所",wiki:"Yunohira Observatory Sakurajima",p:"最靠近火山口的展望台，近距離仰望冒煙的櫻島，震撼十足。",kid:"看真火山🌋"},
+   {h:"有村熔岩展望所＋足湯",wiki:"Arimura Lava Observatory",p:"走在熔岩原步道，再泡免費海邊足湯，動靜皆有。",kid:"熔岩步道＋足湯"}
+  ],
+  lunch:["味処 忠"], dinner:["珍満食堂"],
+  food:["味処 忠","珍満食堂","Ofukuronoaji shun"],
+  stay:"APA Hotel Kagoshima Chuo（連通房）",
+  rain:["火山灰 / 大雨時展望台視野差，可改 <b>櫻島遊客中心（室內）</b>了解火山","回鹿兒島逛 <b>AMU PLAZA＋觀覽車</b>","<b>天文館</b>商店街與美食街收尾"]
+ },
+ {
+  n:14, date:"8/2 (日)", title:"太宰府・門司港・福岡塔", where:["福岡","福岡 泊"],
+  trip:{main:[{r:"鹿兒島中央 → 博多",t:"08:32~09:51",tr:""}],backup:[]},
+  train:{tag:"JR 1:20",txt:"鹿兒島中央 → 博多（太宰府柳川套票）"},
+  spots:[
+   {h:"太宰府天滿宮",wiki:"Dazaifu Tenmangu",p:"學問之神所在，國中生來拜考運最應景，參道梅枝餅熱呼呼必嚐。",kid:"求學業御守＋梅枝餅"},
+   {h:"門司港懷舊區",wiki:"Mojiko Retro",p:"大正浪漫紅磚街景與海港，名物『燒咖哩』香濃必吃。",kid:"復古港町＋燒咖哩🍛"},
+   {h:"福岡塔",wiki:"Fukuoka Tower",p:"234 公尺海濱地標，展望台俯瞰福岡灣與市區夜景，為旅程畫下句點。",kid:"登塔看夜景🌃"}
+  ],
+  lunch:["門司港 燒咖哩"], dinner:["太宰府參道 梅枝餅"],
+  food:["門司港 燒咖哩","太宰府參道 梅枝餅"],
+  stay:"HOTEL ORIENTAL EXPRESS FUKUOKA TENJIN（含早餐）",
+  rain:["<b>九州國立博物館</b>（緊鄰太宰府）：互動體驗區孩子超愛","門司港 <b>關門海峽博物館 / 鐵道紀念館</b>室內好逛","福岡塔本體即室內展望，雨天無礙；天神地下街收尾購物"]
+ },
+ {
+  n:15, date:"8/3 (一)", title:"下午回台・賦歸", where:["福岡機場","—"],
+  trip:{main:[{r:"福岡機場 ✈️ 14:15~15:45 回台",t:"—",tr:""}],backup:[]},
+  train:{tag:"航班",txt:"14:15 ~ 15:45 回台"},
+  spots:[
+   {h:"上午自由時間",wiki:"Tenjin Fukuoka",p:"退房後可到天神或博多站做最後採買，福岡機場國際線距市區近，從容收尾。",kid:"最後採買🛍"},
+   {h:"福岡機場",wiki:"Fukuoka Airport",p:"國內線美食街與免稅店豐富，提早報到悠閒登機，平安回家。"}
+  ],
+  lunch:["機場拉麵滑走道"], dinner:["—"],
+  food:["機場拉麵滑走道","最後一碗豚骨拉麵"],
+  stay:"—（賦歸）",
+  rain:["上午行程改 <b>博多站 / 天神地下街</b>室內購物即可","雨天直接提早到機場逛免稅店與美食街"]
+ }
+];
+
+const nav = document.getElementById('navscroll');
+const cont = document.getElementById('days');
+
+// 住宿花費（日幣，部分為跨夜同一筆訂房；空白＝併入前一筆）
+const cost = {1:5851,2:8591,3:null,4:10807,5:null,6:5769,7:4247,8:15885,9:null,10:11518,11:null,12:7296,13:null,14:6358,15:null};
+const fmtY = v => "¥"+Number(v).toLocaleString();
+const totalCost = Object.values(cost).reduce((a,b)=>a+(b||0),0);
+
+days.forEach(d=>{
+  const a=document.createElement('a');
+  a.href="#day"+d.n;
+  a.innerHTML=`<span class="num">D${d.n}</span> ${d.title.split('・')[0]}`;
+  nav.appendChild(a);
+
+  const mapUrl = name => "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(name+" 日本");
+  const clean = name => String(name).replace(/<[^>]+>/g,'').replace(/[：:].*$/,'').replace(/[（(].*?[)）]/g,'').trim();
+  const spotsHTML = d.spots.map((s,si)=>`
+    <div class="spot">
+      <h3><a class="spotlink" target="_blank" rel="noopener" href="${mapUrl(s.q||s.h)}">${s.h} <span class="pin">📍</span></a>
+        <button class="maplink photobtn" onclick="openPhotos('${clean(s.q||s.h).replace(/'/g,"\\'")}')">🔍照片</button>
+      </h3>
+      <p>${s.p}</p>
+      ${s.kid?`<span class="kid">👧 ${s.kid}</span>`:''}
+      <div class="photostrip" data-q="${(s.wiki||s.q||s.h).replace(/"/g,'')}"></div>
+    </div>`).join('');
+
+  const mealChip = f=>`<a class="chip foodmap" target="_blank" rel="noopener" href="${mapUrl(clean(f))}" title="開啟地圖">${f} <span class="pin">📍</span></a>`;
+  const lunchHTML = (d.lunch&&d.lunch.length)?d.lunch.map(mealChip).join(''):'<span class="chip meal-none">未定</span>';
+  const dinnerHTML = (d.dinner&&d.dinner.length)?d.dinner.map(mealChip).join(''):'<span class="chip meal-none">未定</span>';
+  const otherHTML = (d.food&&d.food.length)?d.food.map(f=>`<a class="chip foodmap alt" target="_blank" rel="noopener" href="${mapUrl(clean(f))}" title="開啟地圖">🍜 ${f} <span class="pin">📍</span></a>`).join(''):'';
+  const rainHTML = d.rain.filter(r=>Array.isArray(r)?false:r).map(r=>{
+     const key=clean(r);
+     return `<li><button class="rainlink" onclick="openPhotos('${key.replace(/'/g,"\\'")}')" title="點擊看照片">${r} <span class="cam">📷</span></button></li>`;
+  }).join('');
+
+  const legRow = l=>`<div class="leg-row"><span class="leg-route">${l.r}</span>${l.tr?`<span class="leg-train">${l.tr}</span>`:''}<span class="leg-time">${l.t}</span></div>`;
+  let tripHTML='';
+  if(d.trip){
+    tripHTML = d.trip.main.map(legRow).join('');
+    if(d.trip.backup&&d.trip.backup.length){
+      tripHTML += d.trip.backup.map(b=>
+        `<div class="trip-backup"><span class="btag">🔄 ${b.label}</span>${b.legs.map(legRow).join('')}</div>`).join('');
+    }
+  }
+
+  const el=document.createElement('section');
+  el.className='day'; el.id='day'+d.n;
+  el.innerHTML=`
+   <div class="day-head">
+     <div class="day-badge"><span class="d">DAY</span><span class="n">${d.n}</span></div>
+     <div class="info">
+       <h2>${d.title}</h2>
+       <div class="where">📅 ${d.date} ｜ 📍 <b>${d.where[0]}</b> · 🏨 ${d.where[1]}</div>
+     </div>
+     <div class="train"><span class="tag">🚄 ${d.train.tag}</span><br>${d.train.txt}</div>
+   </div>
+   <div class="day-body">
+     ${tripHTML?`<div class="section-title"><span class="ic trip">🚄</span>交通</div><div class="tripbox">${tripHTML}</div>`:''}
+     <div class="section-title"><span class="ic spot">📷</span>景點亮點</div>
+     ${spotsHTML}
+     <div class="section-title"><span class="ic food">🍴</span>用餐</div>
+     <div class="meal-row"><span class="meal-label lunch">☀️ 午餐</span><div class="chips">${lunchHTML}</div></div>
+     <div class="meal-row"><span class="meal-label dinner">🌙 晚餐</span><div class="chips">${dinnerHTML}</div></div>
+     ${otherHTML?`<div class="meal-row"><span class="meal-label other">🍜 其他推薦</span><div class="chips">${otherHTML}</div></div>`:''}
+     <div class="section-title"><span class="ic rain">🌧</span>雨天 / 備案</div>
+     <div class="rainbox"><ul>${rainHTML}</ul></div>
+     <div class="section-title"><span class="ic stay">🏨</span>住宿</div>
+     <div class="chips"><a class="chip stay foodmap" target="_blank" rel="noopener" href="${mapUrl(d.stay)}" title="開啟地圖">🛏 ${d.stay} <span class="pin">📍</span></a>${cost[d.n]?`<span class="chip cost">💰 住宿 ${fmtY(cost[d.n])}</span>`:(d.n>1&&d.stay===days[d.n-2].stay?`<span class="chip cost dim">💰 同前一晚訂房</span>`:'')}</div>
+   </div>`;
+  cont.appendChild(el);
+});
+
+document.getElementById('totalpill').textContent = "💰 住宿合計 "+fmtY(totalCost)+"（約台幣 "+Math.round(totalCost*0.21).toLocaleString()+"）";
+
+// ===== 照片彈窗 =====
+const overlay=document.getElementById('photoModal');
+const pmBody=document.getElementById('pmBody');
+const pmTitle=document.getElementById('pmTitle');
+const pmGoogle=document.getElementById('pmGoogle');
+
+function closePhotos(){ overlay.classList.remove('show'); pmBody.innerHTML=''; pmBody.style.display=''; pmGoogle.textContent='🔍 在 Google 圖片看更多'; }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePhotos(); });
+
+async function openPhotos(name){
+  pmTitle.textContent='📷 '+name;
+  pmBody.style.display='';
+  pmGoogle.textContent='🔍 在 Google 圖片看更多';
+  pmGoogle.href="https://www.google.com/search?tbm=isch&q="+encodeURIComponent(name+" 日本");
+  pmBody.innerHTML='<div class="pm-spin">載入照片中…⏳<br><span style="font-size:12px">（需要網路連線）</span></div>';
+  overlay.classList.add('show');
+
+  try{
+    // 加上情境限定詞，避免短店名撈到無關/不雅圖片
+    const query=name+" Japan";
+    const api="https://commons.wikimedia.org/w/api.php?origin=*&action=query&format=json"
+      +"&generator=search&gsrnamespace=6&gsrlimit=10&gsrsearch="+encodeURIComponent(query)
+      +"&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=320";
+    const res=await fetch(api);
+    const data=await res.json();
+    const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
+    const imgs=pages.map(p=>p.imageinfo&&p.imageinfo[0]).filter(Boolean)
+      .filter(ii=>/\.(jpe?g|png)$/i.test(ii.url))
+      .filter(ii=>isSafeImage(ii.url))
+      .slice(0,4);
+    if(imgs.length===0){ showFallback(name); return; }
+    pmBody.innerHTML = imgs.map(ii=>
+      `<a href="${ii.url}" target="_blank" rel="noopener">
+         <img loading="lazy" src="${ii.thumburl}" alt="${name.replace(/"/g,'')}" onerror="this.parentElement.style.display='none'">
+       </a>`).join('')
+      + '<div class="pm-credit">圖片來源：Wikimedia Commons · 僅供參考，實景以官方為準</div>';
+  }catch(err){
+    showFallback(name);
+  }
+}
+
+// 安全過濾：擋掉不適合家族瀏覽的關鍵字（檔名層級）
+const BLOCK=/(nude|naked|nsfw|porn|erotic|sex|adult|breast|nipple|lingerie|bikini|underwear|gore|blood|corpse|death|weapon|gun|knife|裸|乳|성인|エロ|裸体|ヌード)/i;
+function isSafeImage(url){
+  try{ return !BLOCK.test(decodeURIComponent(url)); }
+  catch(e){ return !BLOCK.test(url); }
+}
+
+function showFallback(name){
+  pmBody.innerHTML='<div class="pm-msg">😅 這個地點暫時找不到授權圖片<br>'
+    +'<span style="font-size:13px">點下方按鈕用 Google 圖片看實景照片</span></div>';
+}
+
+// ===== 嵌入本機官方照片：images/{id}_1.jpg ~ _3.jpg =====
+// 將官網照片存到網頁同層的 images 資料夾，依下方檔名命名即可自動顯示。
+// ===== 線上抓圖：瀏覽器向 Wikimedia Commons 取授權圖（可跨站嵌入）=====
+async function loadStrip(el){
+  const q=el.dataset.q;
+  el.innerHTML='<div class="ps-skel"></div><div class="ps-skel"></div><div class="ps-skel"></div>';
+  const api="https://commons.wikimedia.org/w/api.php?origin=*&action=query&format=json"
+    +"&generator=search&gsrnamespace=6&gsrlimit=10&gsrsearch="+encodeURIComponent(q)
+    +"&prop=imageinfo&iiprop=url&iiurlwidth=320";
+  try{
+    const res=await fetch(api);
+    const data=await res.json();
+    const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
+    const imgs=pages.map(p=>p.imageinfo&&p.imageinfo[0]).filter(Boolean)
+      .filter(ii=>/\.(jpe?g|png)$/i.test(ii.url))
+      .filter(ii=>isSafeImage(ii.url))
+      .slice(0,3);
+    if(imgs.length===0){ el.classList.add('empty'); el.innerHTML=''; return; }
+    el.innerHTML=imgs.map(ii=>
+      `<img loading="lazy" src="${ii.thumburl}" data-full="${ii.url}"
+        onclick="lightbox(this.dataset.full)" onerror="this.remove()" alt="${q}">`).join('');
+    setTimeout(()=>{ if(el.querySelectorAll('img').length===0){el.classList.add('empty');el.innerHTML='';} },2500);
+  }catch(e){ el.classList.add('empty'); el.innerHTML=''; }
+}
+
+// 捲到才載入，省流量
+const strips=[...document.querySelectorAll('.photostrip')];
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver((ents,obs)=>{
+    ents.forEach(en=>{ if(en.isIntersecting){ loadStrip(en.target); obs.unobserve(en.target); } });
+  },{rootMargin:'300px'});
+  strips.forEach(s=>io.observe(s));
+}else{ strips.forEach(loadStrip); }
+
+// 點圖放大
+function lightbox(url){
+  pmTitle.textContent='📷 照片';
+  pmGoogle.href=url;
+  pmGoogle.textContent='🔗 開啟原圖 / 來源';
+  pmBody.style.display='block';
+  pmBody.innerHTML=`<img src="${url}" style="width:100%;height:auto;max-height:70vh;object-fit:contain;border-radius:12px">`
+    +'<div class="pm-credit" style="margin-top:8px">圖片來源：Wikimedia Commons</div>';
+  overlay.classList.add('show');
+}
+</script>
+</body>
+</html>

@@ -106,6 +106,22 @@ nav.daynav a .num{font-weight:700;color:var(--sky)}
 .wx-link:hover{background:var(--sky);color:#fff;border-color:var(--sky)}
 @media(max-width:640px){.wx-nm{flex:0 0 100%;min-width:0}}
 
+
+/* PLAN SELECTOR */
+.plan-hint{font-size:12px;color:#6b5aa0;background:#f4f1fc;border:1px dashed #d3c6ee;border-radius:9px;padding:6px 10px;margin-bottom:8px}
+.plan-block{border:1px solid #e2daf5;border-radius:11px;padding:4px 12px 8px;margin-bottom:8px;background:#fdfcff}
+.plan-head{display:flex;align-items:center;gap:8px;padding:7px 0 3px}
+.plan-tag{font-size:12.5px;font-weight:800;color:#6b5aa0;flex:1}
+.plan-tag.main{color:#2f7a52}
+.plan-tag.picked{color:#26714d;flex:1}
+.plan-btn{font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;border-radius:8px;
+  padding:4px 12px;background:var(--sky);color:#fff;border:1px solid var(--sky)}
+.plan-btn:hover{background:var(--sky-d);border-color:var(--sky-d)}
+.plan-btn.ghost{background:#fff;color:#6b7c88;border:1px solid #d7dee6}
+.plan-btn.ghost:hover{background:#eef2f7;color:var(--ink)}
+.plan-chosen{display:flex;align-items:center;gap:8px;background:#eefaf3;border:1px solid #bfe6cf;
+  border-radius:9px;padding:6px 10px;margin-bottom:6px}
+
 /* DAY CARD */
 .day{background:var(--card);border:1px solid var(--line);border-radius:18px;
   box-shadow:var(--shadow);margin:26px 0;overflow:hidden;scroll-margin-top:70px}
@@ -554,6 +570,16 @@ const WDATE = {"1": "2026-07-20", "2": "2026-07-21", "3": "2026-07-22", "4": "20
 const nav = document.getElementById('navscroll');
 const cont = document.getElementById('days');
 
+// ===== 交通方案選擇（選了就記住，可重選）=====
+const PLAN_KEY = 'kyushu_trip_plans';
+let PLANS = {};
+try{ PLANS = JSON.parse(localStorage.getItem(PLAN_KEY) || '{}'); }catch(e){ PLANS = {}; }
+function savePlans(){ try{ localStorage.setItem(PLAN_KEY, JSON.stringify(PLANS)); }catch(e){} }
+function getPlan(n){ return (PLANS[n]===undefined || PLANS[n]===null) ? null : PLANS[n]; }
+function setPlan(n,i){ PLANS[n]=i; savePlans(); renderDays(); scrollToDay(n); }
+function clearPlan(n){ delete PLANS[n]; savePlans(); renderDays(); scrollToDay(n); }
+function scrollToDay(n){ try{ const t=document.getElementById('day'+n); if(t && t.scrollIntoView) t.scrollIntoView({block:'start'}); }catch(e){} }
+
 // 住宿花費（日幣，部分為跨夜同一筆訂房；空白＝併入前一筆）
 const cost = {1:5851,2:8591,3:null,4:10807,5:null,6:5769,7:4247,8:15885,9:null,10:11518,11:null,12:7296,13:null,14:6358,15:null};
 
@@ -571,6 +597,8 @@ const hotelInfo = {
 const fmtY = v => "¥"+Number(v).toLocaleString();
 const totalCost = Object.values(cost).reduce((a,b)=>a+(b||0),0);
 
+function renderDays(){
+cont.innerHTML=''; nav.innerHTML='';
 days.forEach(d=>{
   const a=document.createElement('a');
   a.href="#day"+d.n;
@@ -605,10 +633,34 @@ days.forEach(d=>{
     </div>`;
   let tripHTML='';
   if(d.trip){
-    tripHTML = d.trip.main.map(legRow).join('');
-    if(d.trip.backup&&d.trip.backup.length){
-      tripHTML += d.trip.backup.map(b=>
-        `<div class="trip-backup"><span class="btag">🔄 ${b.label}</span>${b.legs.map(legRow).join('')}</div>`).join('');
+    const bks = (d.trip.backup&&d.trip.backup.length)?d.trip.backup:[];
+    if(!bks.length){
+      // 沒有備案：直接顯示
+      tripHTML = d.trip.main.map(legRow).join('');
+    }else{
+      // 有備案：可選擇方案
+      const chosen = getPlan(d.n);
+      const plans = [{label:'主要方案', legs:d.trip.main}].concat(
+        bks.map(b=>({label:b.label, legs:b.legs})));
+      if(chosen===null){
+        // 尚未選擇 → 全部顯示 + 選擇按鈕
+        tripHTML = `<div class="plan-hint">🔀 這天有 ${plans.length} 個交通方案，確定後可點按鈕鎖定只顯示該方案</div>`
+          + plans.map((p,i)=>`
+            <div class="plan-block">
+              <div class="plan-head">
+                <span class="plan-tag ${i===0?'main':''}">${i===0?'✅ '+p.label:'🔄 '+p.label}</span>
+                <button class="plan-btn" onclick="setPlan(${d.n},${i})">選這個</button>
+              </div>
+              ${p.legs.map(legRow).join('')}
+            </div>`).join('');
+      }else{
+        // 已選擇 → 只顯示該方案
+        const p = plans[chosen] || plans[0];
+        tripHTML = `<div class="plan-chosen">
+            <span class="plan-tag picked">✅ 已確定：${p.label}</span>
+            <button class="plan-btn ghost" onclick="clearPlan(${d.n})">重新選擇</button>
+          </div>` + p.legs.map(legRow).join('');
+      }
     }
   }
 
@@ -645,6 +697,8 @@ days.forEach(d=>{
    </div>`;
   cont.appendChild(el);
 });
+attachObservers();
+}
 
 document.getElementById('totalpill').textContent = "💰 住宿合計 "+fmtY(totalCost)+"（約台幣 "+Math.round(totalCost*0.21).toLocaleString()+"）";
 
@@ -727,13 +781,7 @@ async function loadStrip(el){
 }
 
 // 捲到才載入，省流量
-const strips=[...document.querySelectorAll('.photostrip')];
-if('IntersectionObserver' in window){
-  const io=new IntersectionObserver((ents,obs)=>{
-    ents.forEach(en=>{ if(en.isIntersecting){ loadStrip(en.target); obs.unobserve(en.target); } });
-  },{rootMargin:'300px'});
-  strips.forEach(s=>io.observe(s));
-}else{ strips.forEach(loadStrip); }
+// 觀察器在 attachObservers() 內統一掛載（每次 renderDays 後重掛）
 
 // 點圖放大
 function lightbox(url){
@@ -806,14 +854,24 @@ async function loadWx(el){
     </div>`).join('')
     + `<a class="wx-link" href="https://www.jma.go.jp/bosai/forecast/" target="_blank" rel="noopener">🔗 日本氣象廳官網（現地最即時・含警報）</a>`;
 }
-const wxs=[...document.querySelectorAll('.wxstrip')];
-if('IntersectionObserver' in window){
-  const wio=new IntersectionObserver((ents,obs)=>{
-    ents.forEach(en=>{ if(en.isIntersecting){ loadWx(en.target); obs.unobserve(en.target); } });
-  },{rootMargin:'300px'});
-  wxs.forEach(s=>wio.observe(s));
-}else{ wxs.forEach(loadWx); }
-
+// 統一掛載觀察器（每次重新渲染後呼叫）
+function attachObservers(){
+  const strips=[...document.querySelectorAll('.photostrip')];
+  const wxel=[...document.querySelectorAll('.wxstrip')];
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((ents,obs)=>{
+      ents.forEach(en=>{ if(en.isIntersecting){ loadStrip(en.target); obs.unobserve(en.target); } });
+    },{rootMargin:'300px'});
+    strips.forEach(s=>io.observe(s));
+    const wio=new IntersectionObserver((ents,obs)=>{
+      ents.forEach(en=>{ if(en.isIntersecting){ loadWx(en.target); obs.unobserve(en.target); } });
+    },{rootMargin:'300px'});
+    wxel.forEach(s=>wio.observe(s));
+  }else{
+    strips.forEach(loadStrip); wxel.forEach(loadWx);
+  }
+}
+renderDays();
 </script>
 </body>
 </html>

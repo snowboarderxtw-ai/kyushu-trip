@@ -65,6 +65,20 @@ nav.daynav a .num{font-weight:700;color:var(--sky)}
 .flight-card .fpax.note{color:#b06;border-top:1px dashed #e6ebf1;font-size:11.5px}
 @media(max-width:640px){.flight-grid{grid-template-columns:1fr}}
 
+/* JR PASS BOX */
+.passbox{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px 18px;margin:14px 0 4px}
+.passbox h3{font-size:15px;color:var(--leaf);margin-bottom:12px}
+.pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pass-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fbfcfe}
+.pass-card.p1{border-left:4px solid var(--sky)}
+.pass-card.p2{border-left:4px solid var(--leaf)}
+.pass-card .pass-nm{font-size:14px;font-weight:800;color:var(--ink)}
+.pass-card .pass-jp{font-size:12px;color:var(--sub);margin:2px 0 4px}
+.pass-card .pass-date{font-size:15px;font-weight:800;color:#c2410c;margin-bottom:5px}
+.pass-card .pass-cover{font-size:12px;color:var(--sub);line-height:1.6}
+.pass-foot{margin-top:10px;background:#f4f7fb;border-radius:9px;padding:8px 11px;font-size:11.5px;color:#5a6b7b;line-height:1.7}
+@media(max-width:640px){.pass-grid{grid-template-columns:1fr}}
+
 
 /* BOAT BOOKING */
 .boat-box{background:#eef7fb;border:1px solid #c3e2ef;border-radius:14px;padding:12px 14px;margin-top:10px}
@@ -101,6 +115,7 @@ nav.daynav a .num{font-weight:700;color:var(--sky)}
 .wx-ds{color:#7b8a99;font-size:11.5px}
 .wx-na{color:#b9c3cd}
 .wx-load{font-size:12px;color:#9aa6b3}
+.wx-legend{font-size:10.5px;color:#a3aebb;padding:1px 2px}
 .wx-link{font-size:11.5px;color:#2a6f9e;text-decoration:none;align-self:flex-start;
   background:#eef4fa;border:1px solid #cfe0f0;border-radius:8px;padding:3px 9px}
 .wx-link:hover{background:var(--sky);color:#fff;border-color:var(--sky)}
@@ -293,6 +308,25 @@ footer .tips li{font-size:13.5px;margin-left:18px;margin-bottom:5px}
         <div class="fpax note">※ 其他三人回程訂位代號請另行確認</div>
       </div>
     </div>
+  </div>
+
+  <div class="passbox">
+    <h3>🎫 JR Pass 使用期間</h3>
+    <div class="pass-grid">
+      <div class="pass-card p1">
+        <div class="pass-nm">① 山陽＆山陰＆北九州 周遊券</div>
+        <div class="pass-jp">山陽・山陰・北九州エリアパス</div>
+        <div class="pass-date">7/21 (一) ～ 7/27 (一)・連續 7 天</div>
+        <div class="pass-cover">涵蓋 7/21～7/27 全部 JR 車程（含四國宇多津、宮島渡輪、由布院之森、あそぼーい!）。官方確認可搭のぞみ/みずほ。</div>
+      </div>
+      <div class="pass-card p2">
+        <div class="pass-nm">② JR 全九州 周遊券</div>
+        <div class="pass-jp">JR九州レールパス（全九州）</div>
+        <div class="pass-date">7/29 (三) ～ 起</div>
+        <div class="pass-cover">涵蓋 7/29 之後九州段（由布院→延岡、延岡→鹿兒島、鹿兒島→博多）。</div>
+      </div>
+    </div>
+    <div class="pass-foot">※ 7/28 由布院慢活日不搭 JR，剛好卡在兩張 Pass 之間　※ 特色列車（由布院之森、あそぼーい!）及のぞみ/みずほ 皆需先劃位</div>
   </div>
 </div>
 
@@ -811,14 +845,16 @@ async function loadWx(el){
   async function fetchWx(lat,lon,model){
     const mp = model ? `&models=${model}` : '';
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
-      + `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max`
+      + `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum`
       + `&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}${mp}`;
     const r = await fetch(url);
     if(!r.ok) throw new Error('http '+r.status);
     const j = await r.json();
     const d = j.daily;
     if(!d || !d.time || !d.time.length || d.temperature_2m_max[0]==null) return null;
-    return {code:d.weather_code[0], tmax:d.temperature_2m_max[0], tmin:d.temperature_2m_min[0], pop:d.precipitation_probability_max[0]};
+    return {code:d.weather_code[0], tmax:d.temperature_2m_max[0], tmin:d.temperature_2m_min[0],
+            pop:(d.precipitation_probability_max?d.precipitation_probability_max[0]:null),
+            mm:(d.precipitation_sum?d.precipitation_sum[0]:null)};
   }
 
   // 每個地點獨立處理，單點失敗不影響其他點（allSettled）
@@ -841,9 +877,14 @@ async function loadWx(el){
   const cell = (w)=>{
     if(!w) return `<span class="wx-na">—</span>`;
     const m = WMO[w.code] || ["🌡",""];
+    let rain='';
+    if(w.pop!=null){
+      rain = `<span class="wx-pop ${w.pop>=50?'hi':''}">☔${w.pop}%</span>`;
+    }else if(w.mm!=null){
+      rain = `<span class="wx-pop ${w.mm>=10?'hi':''}">🌧${w.mm.toFixed(1)}mm</span>`;
+    }
     return `<span class="wx-ic">${m[0]}</span><span class="wx-tp">${Math.round(w.tmax)}°/${Math.round(w.tmin)}°</span>`
-      + (w.pop!=null?`<span class="wx-pop ${w.pop>=50?'hi':''}">☔${w.pop}%</span>`:'')
-      + `<span class="wx-ds">${m[1]}</span>`;
+      + rain + `<span class="wx-ds">${m[1]}</span>`;
   };
 
   el.innerHTML = rows.map((r,i)=>`
@@ -852,6 +893,7 @@ async function loadWx(el){
       <span class="wx-src2 jma">JMA</span><span class="wx-cell">${cell(r.jma)}</span>
       <span class="wx-src2 om">Open-Meteo</span><span class="wx-cell">${cell(r.glob)}</span>
     </div>`).join('')
+    + `<div class="wx-legend">☔=降雨機率　🌧=預估雨量（JMA 模型不提供降雨機率，改以雨量表示）</div>`
     + `<a class="wx-link" href="https://www.jma.go.jp/bosai/forecast/" target="_blank" rel="noopener">🔗 日本氣象廳官網（現地最即時・含警報）</a>`;
 }
 // 統一掛載觀察器（每次重新渲染後呼叫）

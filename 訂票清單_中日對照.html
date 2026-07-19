@@ -18,7 +18,7 @@ header .sub{font-size:13px;opacity:.9;margin-top:4px}
 .pax{display:inline-flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .pax span{background:#eef4fa;border:1px solid #cfe0f0;color:var(--sky);border-radius:8px;padding:4px 12px;font-size:14px;font-weight:600}
 .day{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:16px 0;overflow:hidden;box-shadow:0 6px 18px rgba(20,45,75,.06)}
-.day-h{background:linear-gradient(100deg,#eef5fb,#eef7f1);padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.day-h{background:linear-gradient(100deg,#eef5fb,#eef7f1);padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .day-h .date{font-size:17px;font-weight:800;color:var(--sky)}
 .day-h .note{font-size:12.5px;color:var(--sub)}
 .legs{padding:6px 16px 14px}
@@ -31,6 +31,20 @@ header .sub{font-size:13px;opacity:.9;margin-top:4px}
 .xbadge{display:inline-block;font-size:13px;font-weight:700;border-radius:8px;padding:3px 10px;margin-right:6px}
 .xbadge.direct{background:#e8f7ee;border:1px solid #bfe6cf;color:#26714d}
 .xbadge.change{background:#fff3e6;border:1px solid #f3d3ac;color:#b45309}
+.passbox{background:#fff;border:2px solid var(--leaf);border-radius:14px;margin:16px 0;padding:14px 18px}
+.passbox h3{font-size:15px;color:var(--leaf);margin-bottom:10px}
+.pass-item{border-left:4px solid var(--sky);padding:6px 0 6px 12px;margin:8px 0}
+.pass-item.p2{border-left-color:var(--leaf)}
+.pass-nm{font-size:14px;font-weight:800;color:var(--ink)}
+.pass-jp{font-size:12px;font-weight:500;color:var(--sub);margin-left:8px}
+.pass-date{font-size:15px;font-weight:800;color:#c2410c;margin:3px 0}
+.pass-cover{font-size:12.5px;color:var(--sub)}
+.pass-note{margin-top:10px;background:#f4f7fb;border-radius:9px;padding:8px 11px;font-size:12px;color:#5a6b7b;line-height:1.7}
+.cover-jp{color:#8a93a0;font-size:11.5px}
+.train-cn{font-size:12px;font-weight:500;color:#8a6d3b;margin-left:4px}
+.pass-tag{margin-left:auto;font-size:11.5px;font-weight:700;border-radius:8px;padding:3px 9px;white-space:nowrap}
+.pass-tag.p1{background:#eaf3fb;border:1px solid #c8e0f2;color:#1c5e8c}
+.pass-tag.p2{background:#eefaf3;border:1px solid #bfe6cf;color:#26714d}
 .leg .time{display:inline-block;margin-top:6px;margin-left:6px;background:#eef4fa;border:1px solid #cfe0f0;color:var(--sky);border-radius:8px;padding:3px 10px;font-size:15px;font-weight:700}
 .leg .cn{font-size:12.5px;color:var(--sub);margin-top:5px}
 .backup{margin:2px 16px 14px;background:#fbfcfe;border:1px dashed #c7d2de;border-radius:10px;padding:4px 12px 10px}
@@ -64,6 +78,21 @@ header .sub{font-size:13px;opacity:.9;margin-top:4px}
     </div>
   </div>
 
+  <div class="passbox">
+    <h3>🎫 JR Pass 使用期間 / JRパス 利用期間</h3>
+    <div class="pass-item p1">
+      <div class="pass-nm">① 山陽＆山陰＆北九州 周遊券<span class="pass-jp">山陽・山陰・北九州エリアパス</span></div>
+      <div class="pass-date">7/21（月）～ 7/27（日）・連續 7 天 / 7日間</div>
+      <div class="pass-cover">涵蓋 7/21～7/27 全部 JR 車程（含四國宇多津、宮島渡輪、由布院之森）<br><span class="cover-jp">7/21〜7/27 のすべての JR 区間をカバー（宇多津・宮島フェリー・ゆふいんの森 を含む）</span></div>
+    </div>
+    <div class="pass-item p2">
+      <div class="pass-nm">② JR 全九州 周遊券<span class="pass-jp">JR九州レールパス（全九州）</span></div>
+      <div class="pass-date">7/29（三）～ 起 / 7/29（水）から</div>
+      <div class="pass-cover">涵蓋 7/29 之後九州段（由布院→延岡、延岡→鹿兒島、鹿兒島→博多）<br><span class="cover-jp">7/29 以降の九州区間をカバー（由布院→延岡、延岡→鹿児島、鹿児島→博多）</span></div>
+    </div>
+    <div class="pass-note">※ 7/28 由布院慢活日不搭 JR，剛好卡在兩張 Pass 之間<br><span class="cover-jp">※ 7/28 は由布院滞在で JR 利用なし、2枚のパスの間の日</span></div>
+  </div>
+
   <div id="list"></div>
 
   <div class="phrase">
@@ -82,8 +111,32 @@ header .sub{font-size:13px;opacity:.9;margin-top:4px}
 const days = [{"date": "7/21 (二)", "note": "四國水族館一日遊（博多↔廣島↔岡山↔宇多津）", "main": [{"cn": "博多 → 廣島", "from": "博多", "to": "広島（ひろしま）", "time": "07:15~08:16", "train_cn": "", "train_jp": "のぞみ/みずほ", "x": "🟢 直達 / 直通"}, {"cn": "廣島 → 岡山", "from": "広島", "to": "岡山（おかやま）", "time": "09:18~09:57", "train_cn": "", "train_jp": "さくら/のぞみ", "x": "🟢 直達 / 直通"}, {"cn": "岡山 → 宇多津", "from": "岡山", "to": "宇多津（うたづ）", "time": "10:05~10:39", "train_cn": "", "train_jp": "快速マリンライナー", "x": "🟢 直達 / 直通"}, {"cn": "宇多津 → 岡山", "from": "宇多津", "to": "岡山（おかやま）", "time": "18:06~18:41", "train_cn": "", "train_jp": "快速マリンライナー", "x": "🟢 直達 / 直通"}, {"cn": "岡山 → 廣島", "from": "岡山", "to": "広島（ひろしま）", "time": "20:26~21:02", "train_cn": "", "train_jp": "のぞみ/さくら", "x": "🟢 直達 / 直通"}], "backup": []}, {"date": "7/22 (三)", "note": "廣島 → 宮島口", "main": [{"cn": "廣島 → 宮島口（渡輪可用 JR Pass，不需劃位）", "from": "広島", "to": "宮島口（みやじまぐち）", "time": "不須預約 / 予約不要", "train_cn": "", "train_jp": ""}], "backup": []}, {"date": "7/23 (四)", "note": "廣島 → 豪斯登堡", "main": [{"cn": "廣島 → 豪斯登堡", "from": "広島", "to": "ハウステンボス", "time": "16:03~19:20", "train_cn": "", "train_jp": "新幹線→在來線特急", "x": "🟠 換車 / 乗換あり"}], "backup": []}, {"date": "7/25 (六)", "note": "豪斯登堡 → 熊本", "main": [{"cn": "豪斯登堡 → 熊本", "from": "ハウステンボス", "to": "熊本（くまもと）", "time": "08:51~11:16", "train_cn": "", "train_jp": "在來線特急→新幹線", "x": "🟠 換車 / 乗換あり"}], "backup": []}, {"date": "7/26 (日)", "note": "阿蘇（熊本↔宮地）", "main": [{"cn": "熊本 → 宮地", "from": "熊本", "to": "宮地（みやじ）", "time": "09:57~11:32", "train_cn": "ASO Boy No1", "train_jp": "あそぼーい！1号", "x": "🟢 直達 / 直通"}, {"cn": "宮地 → 熊本", "from": "宮地", "to": "熊本（くまもと）", "time": "16:37~18:06", "train_cn": "肥後本線", "train_jp": "豊肥本線（ほうひほんせん）", "x": "🟢 直達 / 直通"}], "backup": [{"label": "備案1 / バックアップ1", "legs": [{"cn": "熊本 → 宮地", "from": "熊本", "to": "宮地（みやじ）", "time": "08:25~10:00", "train_cn": "肥後本線", "train_jp": "豊肥本線"}, {"cn": "宮地 → 熊本", "from": "宮地", "to": "熊本（くまもと）", "time": "15:48~17:08", "train_cn": "Aso Boy No4", "train_jp": "あそぼーい！4号"}]}, {"label": "備案2 / バックアップ2", "legs": [{"cn": "熊本 → 宮地", "from": "熊本", "to": "宮地（みやじ）", "time": "08:25~10:00", "train_cn": "肥後本線", "train_jp": "豊肥本線"}, {"cn": "宮地 → 熊本", "from": "宮地", "to": "熊本（くまもと）", "time": "16:37~18:06", "train_cn": "肥後本線", "train_jp": "豊肥本線"}]}]}, {"date": "7/27 (一)", "note": "熊本 → 由布院", "main": [{"cn": "熊本 → 久留米", "from": "熊本", "to": "久留米（くるめ）", "time": "07:45~08:15", "train_cn": "", "train_jp": "新幹線 つばめ/さくら", "x": "🟠 換車：久留米轉乗"}, {"cn": "久留米/熊本 → 由布院", "from": "熊本", "to": "由布院（ゆふいん）", "time": "09:17~11:31", "train_cn": "Yufuin no Mori No1", "train_jp": "ゆふいんの森 1号", "x": "🟢 由布院之森 直達"}], "backup": [{"label": "備案1 / バックアップ1", "legs": [{"cn": "熊本 → 久留米", "from": "熊本", "to": "久留米（くるめ）", "time": "07:45~08:15", "train_cn": "", "train_jp": ""}, {"cn": "熊本 → 由布院", "from": "熊本", "to": "由布院（ゆふいん）", "time": "10:47~12:32", "train_cn": "Yufuin no Mori No3", "train_jp": "ゆふいんの森 3号"}]}, {"label": "備案2 / バックアップ2", "legs": [{"cn": "熊本 → 久留米", "from": "熊本", "to": "久留米（くるめ）", "time": "07:45~08:15", "train_cn": "", "train_jp": ""}, {"cn": "熊本 → 由布院", "from": "熊本", "to": "由布院（ゆふいん）", "time": "08:25~10:02", "train_cn": "Yufuin 1", "train_jp": "ゆふ 1号"}]}]}, {"date": "7/29 (三)", "note": "由布院 → 延岡", "main": [{"cn": "由布院 → 大分", "from": "由布院", "to": "大分（おおいた）", "time": "12:32~13:18", "train_cn": "Yufuin no Mori No3", "train_jp": "ゆふいんの森 3号", "x": "🟢 直達 / 直通"}, {"cn": "大分 → 延岡", "from": "大分", "to": "延岡（のべおか）", "time": "14:11~14:18", "train_cn": "", "train_jp": "特急 にちりん", "x": "🟠 換車：大分轉乗"}], "backup": [{"label": "備案1 / バックアップ1", "legs": [{"cn": "由布院 → 大分", "from": "由布院", "to": "大分（おおいた）", "time": "14:45~15:29", "train_cn": "由布3", "train_jp": "ゆふ 3号"}, {"cn": "大分 → 延岡", "from": "大分", "to": "延岡（のべおか）", "time": "16:14~18:18", "train_cn": "日輪 11", "train_jp": "にちりん 11号"}]}]}, {"date": "7/31 (五)", "note": "延岡 → 鹿兒島中央", "main": [{"cn": "延岡 → 南宮崎", "from": "延岡", "to": "南宮崎（みなみみやざき）", "time": "08:03~09:20", "train_cn": "", "train_jp": "特急 にちりん", "x": "🟠 換車：南宮崎轉乗"}, {"cn": "南宮崎 → 鹿兒島中央", "from": "南宮崎", "to": "鹿児島中央（かごしまちゅうおう）", "time": "09:25~11:28", "train_cn": "", "train_jp": "特急 きりしま", "x": "🟢 直達 / 直通"}], "backup": []}, {"date": "8/2 (日)", "note": "鹿兒島中央 → 博多", "main": [{"cn": "鹿兒島中央 → 博多", "from": "鹿児島中央", "to": "博多（はかた）", "time": "08:32~09:51", "train_cn": "", "train_jp": "みずほ/さくら", "x": "🟢 直達 / 直通"}], "backup": []}];
 const box = document.getElementById('list');
 
+// 列車名 日→中 對照
+const TRAIN_CN = {
+  "のぞみ/みずほ":"希望號/瑞穗號",
+  "さくら/のぞみ":"櫻號/希望號",
+  "のぞみ/さくら":"希望號/櫻號",
+  "みずほ/さくら":"瑞穗號/櫻號",
+  "快速マリンライナー":"快速 Marine Liner（海洋號）",
+  "新幹線→在來線特急":"新幹線→在來線特急",
+  "在來線特急→新幹線":"在來線特急→新幹線",
+  "あそぼーい！1号":"阿蘇男孩號 1號",
+  "あそぼーい！4号":"阿蘇男孩號 4號",
+  "豊肥本線（ほうひほんせん）":"豐肥本線",
+  "豊肥本線":"豐肥本線",
+  "新幹線 つばめ/さくら":"新幹線 燕號/櫻號",
+  "ゆふいんの森 1号":"由布院之森 1號",
+  "ゆふいんの森 3号":"由布院之森 3號",
+  "ゆふ 1号":"由布號 1號",
+  "ゆふ 3号":"由布號 3號",
+  "特急 にちりん":"特急 日輪號",
+  "にちりん 11号":"日輪號 11號",
+  "特急 きりしま":"特急 霧島號"
+};
+
 function legHTML(l, small){
-  const train = l.train_jp ? `<span class="train">${l.train_jp}</span>` : '';
+  const cnName = TRAIN_CN[l.train_jp] || '';
+  const train = l.train_jp ? `<span class="train">${l.train_jp}${cnName?`<span class="train-cn">（${cnName}）</span>`:''}</span>` : '';
   const time = `<span class="time">${l.time}</span>`;
   const xbadge = l.x ? `<span class="xbadge ${l.x.indexOf('直達')>=0?'direct':'change'}">${l.x}</span>` : '';
   return `<div class="leg">
@@ -101,9 +154,17 @@ days.forEach(d=>{
       `<div class="backup"><span class="btag">${b.label}</span>`
       + b.legs.map(l=>legHTML(l,true)).join('') + `</div>`).join('');
   }
+  // 依日期判斷哪張 Pass 涵蓋
+  const dm = d.date.match(/(\d+)\/(\d+)/);
+  let passTag = '';
+  if(dm){
+    const mmdd = parseInt(dm[1])*100 + parseInt(dm[2]);
+    if(mmdd>=721 && mmdd<=727) passTag = '<span class="pass-tag p1">🎫 山陽・山陰・北九州 Pass</span>';
+    else if(mmdd>=729 || mmdd<=803) passTag = '<span class="pass-tag p2">🎫 全九州 Pass</span>';
+  }
   const el = document.createElement('div');
   el.className='day';
-  el.innerHTML = `<div class="day-h"><span class="date">${d.date}</span><span class="note">${d.note}</span></div>
+  el.innerHTML = `<div class="day-h"><span class="date">${d.date}</span><span class="note">${d.note}</span>${passTag}</div>
     <div class="legs">${legs}</div>${backups}`;
   box.appendChild(el);
 });
